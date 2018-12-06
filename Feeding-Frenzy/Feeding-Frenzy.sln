@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.27428.2037
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Feeding-Frenzy", "Feeding-Frenzy\Feeding-Frenzy.vcxproj", "{8F4CE6B9-D2A0-4E88-B4D9-0927B47AD5A7}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x64 = Debug|x64
+		Debug|x86 = Debug|x86
+		Release|x64 = Release|x64
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{8F4CE6B9-D2A0-4E88-B4D9-0927B47AD5A7}.Debug|x64.ActiveCfg = Debug|x64
+		{8F4CE6B9-D2A0-4E88-B4D9-0927B47AD5A7}.Debug|x64.Build.0 = Debug|x64
+		{8F4CE6B9-D2A0-4E88-B4D9-0927B47AD5A7}.Debug|x86.ActiveCfg = Debug|Win32
+		{8F4CE6B9-D2A0-4E88-B4D9-0927B47AD5A7}.Debug|x86.Build.0 = Debug|Win32
+		{8F4CE6B9-D2A0-4E88-B4D9-0927B47AD5A7}.Release|x64.ActiveCfg = Release|x64
+		{8F4CE6B9-D2A0-4E88-B4D9-0927B47AD5A7}.Release|x64.Build.0 = Release|x64
+		{8F4CE6B9-D2A0-4E88-B4D9-0927B47AD5A7}.Release|x86.ActiveCfg = Release|Win32
+		{8F4CE6B9-D2A0-4E88-B4D9-0927B47AD5A7}.Release|x86.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {E85DD6BA-6C8D-4628-B095-8E3912B71E4A}
+	EndGlobalSection
+EndGlobal
