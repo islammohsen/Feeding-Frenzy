@@ -93,11 +93,10 @@ int main()
 		500.0f, 500.0f, 1.0f, 1.0f, 1.0f,
 		500.0f, 300.0f, 1.0f, 1.0f, 0.0f
 	};
-
 	unsigned int index[] = { 0, 1, 2, 2, 3, 0 };
+	
 	vector<Fish*> F;
 	F.push_back(new Fish(points, sizeof(points), index, 6, "Resources/Textures/Fish/Fish-1.png", 0.0f, 0.0f));
-
 	Renderer *renderer = new Renderer();
 	Shader *textureShader = new Shader(textureShaderFileName);
 	Shader *basicShader = new Shader(basicShaderFileName);

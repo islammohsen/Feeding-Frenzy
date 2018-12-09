@@ -9,7 +9,7 @@ Level::Level(int levelNumber)
 		1024.0f, 0.0f,   0.0f, 1.0f, 0.0f
 	};
 	unsigned int index[] = { 0, 1, 2, 2, 3, 0 };
-	background = new Background(backgroundPoints, sizeof(backgroundPoints), index, 6, "Resources/Textures/Background/BackGround-2.png" );
+	background = new Background(backgroundPoints, sizeof(backgroundPoints), index, 6, "Resources/Textures/Background/background2.png" );
 
 	float boarderPoints[] = {
 		100.0f, 100.0f, 1.0f, 0.0f, 0.0f, 0.0f, 0.1f,

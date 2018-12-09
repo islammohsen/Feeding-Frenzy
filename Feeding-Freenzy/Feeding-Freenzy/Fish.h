@@ -11,14 +11,14 @@
 #include <glm/glm.hpp>
 #include <glm/gtx/transform.hpp>
 
-class Fish
+class Fish  
 {
-	float m_scale;
-	float m_speed;
-	Texture *m_texture;
 	VertexArray *m_vao;
 	IndexBuffer *m_ibo;
 	VertexBuffer *m_vbo;
+	Texture *m_texture;
+	float m_scale;
+	float m_speed;
 	GLint m_count;
 	glm::mat4 m_model;
 

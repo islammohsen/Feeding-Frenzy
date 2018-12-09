@@ -145,7 +145,10 @@
   </ItemGroup>
   <ItemGroup>
     <Image Include="Resources\Textures\Background\BackGround-2.png" />
+    <Image Include="Resources\Textures\Background\background2.png" />
     <Image Include="Resources\Textures\Fish\Fish-1.png" />
+    <Image Include="Resources\Textures\Fish\Fish-2.png" />
+    <Image Include="Resources\Textures\Fish\Fish-3.png" />
     <Image Include="Resources\Textures\Portal\Portal-1.png" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
