@@ -1,0 +1,75 @@
+﻿  Fish.cpp
+d:\git\feeding-frenzy\feeding-frenzy\feeding-frenzy\fish.cpp(27): warning C4267: 'argument': conversion from 'size_t' to 'unsigned int', possible loss of data
+d:\git\feeding-frenzy\feeding-frenzy\feeding-frenzy\fish.cpp(28): warning C4267: 'argument': conversion from 'size_t' to 'unsigned int', possible loss of data
+  Game.cpp
+d:\git\feeding-frenzy\feeding-frenzy\feeding-frenzy\game.cpp(24): warning C4267: 'argument': conversion from 'size_t' to 'unsigned int', possible loss of data
+  IndexBuffer.cpp
+  Level.cpp
+  main.cpp
+  Portal.cpp
+  Renderer.cpp
+  Shader.cpp
+  Texture.cpp
+  VertexArray.cpp
+d:\git\feeding-frenzy\feeding-frenzy\feeding-frenzy\vertexarray.cpp(25): warning C4312: 'type cast': conversion from 'unsigned int' to 'const void *' of greater size
+  VertexBuffer.cpp
+  VertexBufferLayout.cpp
+  Generating Code...
+IndexBuffer.obj : error LNK2001: unresolved external symbol __imp___glewBindBuffer
+VertexBuffer.obj : error LNK2001: unresolved external symbol __imp___glewBindBuffer
+IndexBuffer.obj : error LNK2001: unresolved external symbol __imp___glewBufferData
+VertexBuffer.obj : error LNK2001: unresolved external symbol __imp___glewBufferData
+IndexBuffer.obj : error LNK2001: unresolved external symbol __imp___glewDeleteBuffers
+VertexBuffer.obj : error LNK2001: unresolved external symbol __imp___glewDeleteBuffers
+IndexBuffer.obj : error LNK2001: unresolved external symbol __imp___glewGenBuffers
+VertexBuffer.obj : error LNK2001: unresolved external symbol __imp___glewGenBuffers
+main.obj : error LNK2019: unresolved external symbol __imp_glBlendFunc referenced in function main
+main.obj : error LNK2019: unresolved external symbol __imp_glDepthFunc referenced in function main
+main.obj : error LNK2019: unresolved external symbol __imp_glEnable referenced in function main
+main.obj : error LNK2019: unresolved external symbol __imp_glewInit referenced in function main
+main.obj : error LNK2019: unresolved external symbol glfwInit referenced in function main
+main.obj : error LNK2019: unresolved external symbol glfwTerminate referenced in function main
+main.obj : error LNK2019: unresolved external symbol glfwWindowHint referenced in function main
+main.obj : error LNK2019: unresolved external symbol glfwCreateWindow referenced in function main
+main.obj : error LNK2019: unresolved external symbol glfwWindowShouldClose referenced in function main
+main.obj : error LNK2019: unresolved external symbol glfwPollEvents referenced in function main
+main.obj : error LNK2019: unresolved external symbol glfwSetInputMode referenced in function main
+main.obj : error LNK2019: unresolved external symbol glfwGetCursorPos referenced in function "void __cdecl MouseClicked(struct GLFWwindow *,int,int,int)" (?MouseClicked@@YAXPEAUGLFWwindow@@HHH@Z)
+main.obj : error LNK2019: unresolved external symbol glfwSetKeyCallback referenced in function main
+main.obj : error LNK2019: unresolved external symbol glfwSetMouseButtonCallback referenced in function main
+main.obj : error LNK2019: unresolved external symbol glfwMakeContextCurrent referenced in function main
+main.obj : error LNK2019: unresolved external symbol glfwSwapBuffers referenced in function main
+main.obj : error LNK2019: unresolved external symbol glfwSwapInterval referenced in function main
+main.obj : error LNK2001: unresolved external symbol __imp_glewExperimental
+Renderer.obj : error LNK2019: unresolved external symbol __imp_glClear referenced in function "public: void __cdecl Renderer::Clear(void)const " (?Clear@Renderer@@QEBAXXZ)
+Renderer.obj : error LNK2019: unresolved external symbol __imp_glClearColor referenced in function "public: void __cdecl Renderer::Clear(void)const " (?Clear@Renderer@@QEBAXXZ)
+Renderer.obj : error LNK2019: unresolved external symbol __imp_glDrawElements referenced in function "public: void __cdecl Renderer::Draw(class VertexArray *,class IndexBuffer *,class Shader *,unsigned int)const " (?Draw@Renderer@@QEBAXPEAVVertexArray@@PEAVIndexBuffer@@PEAVShader@@I@Z)
+Renderer.obj : error LNK2019: unresolved external symbol __imp_glGetError referenced in function "void __cdecl GLClearError(void)" (?GLClearError@@YAXXZ)
+Shader.obj : error LNK2001: unresolved external symbol __imp___glewAttachShader
+Shader.obj : error LNK2001: unresolved external symbol __imp___glewCompileShader
+Shader.obj : error LNK2001: unresolved external symbol __imp___glewCreateProgram
+Shader.obj : error LNK2001: unresolved external symbol __imp___glewCreateShader
+Shader.obj : error LNK2001: unresolved external symbol __imp___glewDeleteProgram
+Shader.obj : error LNK2001: unresolved external symbol __imp___glewDeleteShader
+Shader.obj : error LNK2001: unresolved external symbol __imp___glewGetShaderInfoLog
+Shader.obj : error LNK2001: unresolved external symbol __imp___glewGetShaderiv
+Shader.obj : error LNK2001: unresolved external symbol __imp___glewGetUniformLocation
+Shader.obj : error LNK2001: unresolved external symbol __imp___glewLinkProgram
+Shader.obj : error LNK2001: unresolved external symbol __imp___glewShaderSource
+Shader.obj : error LNK2001: unresolved external symbol __imp___glewUniform1i
+Shader.obj : error LNK2001: unresolved external symbol __imp___glewUniform4f
+Shader.obj : error LNK2001: unresolved external symbol __imp___glewUniformMatrix4fv
+Shader.obj : error LNK2001: unresolved external symbol __imp___glewUseProgram
+Shader.obj : error LNK2001: unresolved external symbol __imp___glewValidateProgram
+Texture.obj : error LNK2019: unresolved external symbol __imp_glBindTexture referenced in function "public: __cdecl Texture::Texture(class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> > const &)" (??0Texture@@QEAA@AEBV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@@Z)
+Texture.obj : error LNK2019: unresolved external symbol __imp_glDeleteTextures referenced in function "public: __cdecl Texture::~Texture(void)" (??1Texture@@QEAA@XZ)
+Texture.obj : error LNK2019: unresolved external symbol __imp_glGenTextures referenced in function "public: __cdecl Texture::Texture(class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> > const &)" (??0Texture@@QEAA@AEBV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@@Z)
+Texture.obj : error LNK2019: unresolved external symbol __imp_glTexImage2D referenced in function "public: __cdecl Texture::Texture(class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> > const &)" (??0Texture@@QEAA@AEBV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@@Z)
+Texture.obj : error LNK2019: unresolved external symbol __imp_glTexParameteri referenced in function "public: __cdecl Texture::Texture(class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> > const &)" (??0Texture@@QEAA@AEBV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@@Z)
+Texture.obj : error LNK2001: unresolved external symbol __imp___glewActiveTexture
+VertexArray.obj : error LNK2001: unresolved external symbol __imp___glewEnableVertexAttribArray
+VertexArray.obj : error LNK2001: unresolved external symbol __imp___glewVertexAttribPointer
+VertexArray.obj : error LNK2001: unresolved external symbol __imp___glewBindVertexArray
+VertexArray.obj : error LNK2001: unresolved external symbol __imp___glewDeleteVertexArrays
+VertexArray.obj : error LNK2001: unresolved external symbol __imp___glewGenVertexArrays
+D:\Git\Feeding-Frenzy\Feeding-Frenzy\x64\Debug\Feeding-Frenzy.exe : fatal error LNK1120: 53 unresolved externals

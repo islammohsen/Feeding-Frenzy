@@ -16,12 +16,36 @@
     <Filter Include="Resource Files\shaders">
       <UniqueIdentifier>{25bf79cc-199c-4fbd-9265-e07d5a940e63}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Resource Files\Textures">
+      <UniqueIdentifier>{41868d3f-2204-4720-9542-16d6131e0354}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource Files\Textures\Portal">
+      <UniqueIdentifier>{2fed63f4-71d0-4534-9228-116819d01978}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource Files\Textures\Background">
+      <UniqueIdentifier>{9447bc34-4c71-4f7f-b30a-958861cc40ac}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource Files\Textures\Fish">
+      <UniqueIdentifier>{bfc9d1b5-8807-4a15-b83e-29fdaec6f68a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Fish.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Game.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="IndexBuffer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Level.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="main.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Portal.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Renderer.cpp">
@@ -47,7 +71,19 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Fish.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Game.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
     <ClInclude Include="IndexBuffer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Level.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Portal.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Renderer.h">
@@ -73,8 +109,40 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Basic.shader">
+    <None Include="Resources\shaders\Basic.shader">
       <Filter>Resource Files\shaders</Filter>
     </None>
+    <None Include="Resources\shaders\TextureShader.shader">
+      <Filter>Resource Files\shaders</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="Resources\Textures\Background\background2.png">
+      <Filter>Resource Files\Textures\Background</Filter>
+    </Image>
+    <Image Include="Resources\Textures\Background\BackGround-2.png">
+      <Filter>Resource Files\Textures\Background</Filter>
+    </Image>
+    <Image Include="Resources\Textures\Fish\Fish-1.png">
+      <Filter>Resource Files\Textures\Fish</Filter>
+    </Image>
+    <Image Include="Resources\Textures\Fish\Fish2.png">
+      <Filter>Resource Files\Textures\Fish</Filter>
+    </Image>
+    <Image Include="Resources\Textures\Fish\Fish3.png">
+      <Filter>Resource Files\Textures\Fish</Filter>
+    </Image>
+    <Image Include="Resources\Textures\Fish\Fish4.png">
+      <Filter>Resource Files\Textures\Fish</Filter>
+    </Image>
+    <Image Include="Resources\Textures\Fish\Fish5.png">
+      <Filter>Resource Files\Textures\Fish</Filter>
+    </Image>
+    <Image Include="Resources\Textures\Fish\Whale.png">
+      <Filter>Resource Files\Textures\Fish</Filter>
+    </Image>
+    <Image Include="Resources\Textures\Portal\Portal-1.png">
+      <Filter>Resource Files\Textures\Portal</Filter>
+    </Image>
   </ItemGroup>
 </Project>

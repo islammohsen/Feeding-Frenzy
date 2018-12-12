@@ -119,11 +119,12 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <None Include="Basic.shader" />
-  </ItemGroup>
-  <ItemGroup>
+    <ClCompile Include="Fish.cpp" />
+    <ClCompile Include="Game.cpp" />
     <ClCompile Include="IndexBuffer.cpp" />
+    <ClCompile Include="Level.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Portal.cpp" />
     <ClCompile Include="Renderer.cpp" />
     <ClCompile Include="Shader.cpp" />
     <ClCompile Include="stb_image.cpp" />
@@ -133,7 +134,11 @@
     <ClCompile Include="VertexBufferLayout.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Fish.h" />
+    <ClInclude Include="Game.h" />
     <ClInclude Include="IndexBuffer.h" />
+    <ClInclude Include="Level.h" />
+    <ClInclude Include="Portal.h" />
     <ClInclude Include="Renderer.h" />
     <ClInclude Include="Shader.h" />
     <ClInclude Include="stb_image.h" />
@@ -141,6 +146,21 @@
     <ClInclude Include="VertexArray.h" />
     <ClInclude Include="VertexBuffer.h" />
     <ClInclude Include="VertexBufferLayout.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\shaders\Basic.shader" />
+    <None Include="Resources\shaders\TextureShader.shader" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="Resources\Textures\Background\BackGround-2.png" />
+    <Image Include="Resources\Textures\Background\background2.png" />
+    <Image Include="Resources\Textures\Fish\Fish-1.png" />
+    <Image Include="Resources\Textures\Fish\Fish2.png" />
+    <Image Include="Resources\Textures\Fish\Fish3.png" />
+    <Image Include="Resources\Textures\Fish\Fish4.png" />
+    <Image Include="Resources\Textures\Fish\Fish5.png" />
+    <Image Include="Resources\Textures\Fish\Whale.png" />
+    <Image Include="Resources\Textures\Portal\Portal-1.png" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

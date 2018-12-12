@@ -1,21 +1,11 @@
 #include <iostream>
-#include <fstream>
-#include <string>
-#include <sstream>
 
 #include <gL\glew.h>
 #include <gl\glfw3.h>
-
 #include <glm/glm.hpp>
 #include <glm/gtx/transform.hpp>
 
-#include "Renderer.h"
-#include "IndexBuffer.h"
-#include "VertexBuffer.h"
-#include "VertexArray.h"
-#include "VertexBufferLayout.h"
-#include "Shader.h"
-#include "Texture.h"
+#include "Game.h"
 
 using namespace std;
 
@@ -23,8 +13,6 @@ using namespace std;
 #define GREEN 0.0f, 1.0f, 0.0f
 #define BLUE 0.0f, 0.0f, 1.0f
 #define BLACK 0.0f, 0.0f, 0.0f
-
-string shaderFileName = "Basic.shader";
 
 int keyPressed = -1;
 double MouseXPos = -1.0;
@@ -44,17 +32,16 @@ int main()
 {
 	GLFWwindow* window;
 
-
 	/* Initialize the library */
 	if (!glfwInit())
 		return -1;
 
-	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
-	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
+	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3); //OpenGL version 3.
+	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3); // 3.3
 	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
 	/* Create a windowed mode window and its OpenGL context */
-	window = glfwCreateWindow(1024, 720, "Hello World", NULL, NULL);
+	window = glfwCreateWindow(1024, 720, "Feeding Frenzy", NULL, NULL);
 
 	if (!window)
 	{
@@ -64,62 +51,34 @@ int main()
 
 	/* Make the window's context current */
 	glfwMakeContextCurrent(window);
-
 	glfwSwapInterval(1);
 
+	glewExperimental = GL_TRUE;
 	if (glewInit() != GLEW_OK){
 		cout << "ERROR!";
 		return 0;
 	}
 
-	float points1[] = {
-		0.0f, 0.0f, 0.0f, RED,
-		100.0f, 0.0f, 0.0f, RED,
-		100.0f, 100.0f, 0.0f, RED,
-		0, 100.0f, 0.0f, RED,
-	};
-
-	unsigned int indices1[] = {
-		0, 1, 2, 
-		2, 3, 0,
-	};
-
+	GLCall(glEnable(GL_DEPTH_TEST)); 
+	GLCall(glDepthFunc(GL_LESS));
 	GLCall(glEnable(GL_BLEND));
 	GLCall(glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA));
-
-	VertexArray *va1 = new VertexArray();
-	VertexBuffer *square = new VertexBuffer(points1, sizeof(points1));
-	VertexBufferLayout layout1;
-	layout1.push<float>(3);
-	layout1.push<float>(3);
-	va1->AddBuffer(*square, layout1);
-	IndexBuffer *ib1 = new IndexBuffer(indices1, sizeof(indices1) / sizeof(unsigned int));
 	
-	Shader *shader = new Shader(shaderFileName);
-
-	Renderer *renderer = new Renderer();
-
 	// Ensure we can capture the escape key being pressed below
 	glfwSetInputMode(window, GLFW_STICKY_KEYS, GL_TRUE);
 	glfwSetKeyCallback(window, &SpecialKeyPressed);
 	glfwSetMouseButtonCallback(window, &MouseClicked);
 
+	Game *game = new Game();
+
+	game->Initialize();
+
 	/* Loop until the user closes the window */
 	while (!glfwWindowShouldClose(window))
 	{
 		/* Render here */
-		renderer->Clear();
 
-		glm::mat4 proj = glm::ortho(0.0f, 1024.0f, 0.0f, 720.0f);
-		glm::mat4 view = glm::mat4(1);
-		glm::mat4 model = glm::mat4(1);
-
-		shader->Bind();
-		shader->SetUniformMat4f("u_MVP", proj * view * model);
-
-		//drawing
-		va1->Bind();
-		renderer->Draw(va1, ib1, shader, GL_TRIANGLES);
+		game->Draw();
 
 		/* Swap front and back buffers */
 		glfwSwapBuffers(window);
@@ -127,12 +86,6 @@ int main()
 		/* Poll for and process events */
 		glfwPollEvents();
 	}
-
-	delete shader;
-	delete va1;
-	delete square;
-	delete ib1;
-	delete renderer;
 
 	glfwTerminate();
 	return 0;

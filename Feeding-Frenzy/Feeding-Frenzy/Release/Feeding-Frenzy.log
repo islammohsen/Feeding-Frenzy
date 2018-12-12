@@ -1,0 +1,18 @@
+﻿  Fish.cpp
+  Game.cpp
+  IndexBuffer.cpp
+  Level.cpp
+  main.cpp
+  Portal.cpp
+  Renderer.cpp
+  Shader.cpp
+  stb_image.cpp
+  Texture.cpp
+  VertexArray.cpp
+d:\git\feeding-frenzy\feeding-frenzy\feeding-frenzy\vertexarray.cpp(21): warning C4018: '<': signed/unsigned mismatch
+  VertexBuffer.cpp
+  VertexBufferLayout.cpp
+  Generating code
+  All 906 functions were compiled because no usable IPDB/IOBJ from previous compilation was found.
+  Finished generating code
+  Feeding-Frenzy.vcxproj -> D:\Git\Feeding-Frenzy\Feeding-Frenzy\Release\Feeding-Frenzy.exe
