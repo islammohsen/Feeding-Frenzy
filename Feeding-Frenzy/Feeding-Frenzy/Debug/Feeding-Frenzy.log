@@ -1,6 +1,3 @@
 ﻿  Game.cpp
-  Level.cpp
-  main.cpp
-  Generating Code...
-LINK : warning LNK4098: defaultlib 'MSVCRT' conflicts with use of other libs; use /NODEFAULTLIB:library
+d:\git\feeding-frenzy\feeding-frenzy\feeding-frenzy\feeding-frenzy\objloader.h(17): warning C4091: 'static ': ignored on left of 'OBJLoader' when no variable is declared
   Feeding-Frenzy.vcxproj -> D:\Git\Feeding-Frenzy\Feeding-Frenzy\Feeding-Frenzy\Debug\Feeding-Frenzy.exe

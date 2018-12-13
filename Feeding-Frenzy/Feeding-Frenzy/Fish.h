@@ -5,9 +5,9 @@
 #include "VertexBufferLayout.h"
 #include "Shader.h"
 #include "Renderer.h"
+#include "OBJLoader.h"
 #include <gL\glew.h>
 #include <gl\glfw3.h>
-
 
 #include <glm/glm.hpp>
 #include <glm/gtx/transform.hpp>
@@ -27,7 +27,7 @@ class Fish
 	glm::mat4 m_scaleMatrix;
 	glm::mat4 m_rotationMatrix;
 public:
-	Fish(float xPos, float yPos, float zPos, float m_Xscale, float m_Yscale, float m_Zscale, float m_speed, string texture);
+	Fish(float xPos, float yPos, float zPos, float m_Xscale, float m_Yscale, float m_Zscale, float m_speed, string object, string texture);
 	void Draw(Renderer *renderer, Shader* m_shader, glm::mat4 view, glm::mat4 projection);
 	void move(float valx, float valy, float valz);
 	void rotate(float angle, float x, float y, float z);

@@ -124,6 +124,7 @@
     <ClCompile Include="IndexBuffer.cpp" />
     <ClCompile Include="Level.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="OBJLoader.cpp" />
     <ClCompile Include="Portal.cpp" />
     <ClCompile Include="Renderer.cpp" />
     <ClCompile Include="Shader.cpp" />
@@ -138,6 +139,7 @@
     <ClInclude Include="Game.h" />
     <ClInclude Include="IndexBuffer.h" />
     <ClInclude Include="Level.h" />
+    <ClInclude Include="OBJLoader.h" />
     <ClInclude Include="Portal.h" />
     <ClInclude Include="Renderer.h" />
     <ClInclude Include="Shader.h" />

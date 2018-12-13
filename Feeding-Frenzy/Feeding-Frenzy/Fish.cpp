@@ -1,61 +1,55 @@
 #include "Fish.h"	 
 
 
-Fish::Fish(float xPos, float yPos, float zPos, float m_Xscale, float m_Yscale, float m_Zscale, float m_speed, string texture)
+Fish::Fish(float xPos, float yPos, float zPos, float m_Xscale, float m_Yscale, float m_Zscale, float m_speed, string object, string texture)
 {
 	this->m_speed = m_speed;
 	this->m_scale = m_Xscale * m_Yscale * m_Zscale;
-	points = {
-		//front
-		-1.0f, -1.0f, 1.0f, 0.0f, 0.0f,
-		-1.0f, 1.0f,  1.0f, 0.0f, 1.0f,
-		1.0, 1.0f,  1.0f, 1.0f, 1.0f,
-		1.0f, -1.0f, 1.0f, 1.0f, 0.0f,
+	//points = {
+	//	//front
+	//	-1.0f, -1.0f, 1.0f, 0.0f, 0.0f,
+	//	-1.0f, 1.0f,  1.0f, 0.0f, 1.0f,
+	//	1.0, 1.0f,  1.0f, 1.0f, 1.0f,
+	//	1.0f, -1.0f, 1.0f, 1.0f, 0.0f,
 
 
-		//back
-		-1.0f, -1.0f, -1.0f, 0.0f, 0.0f,
-		-1.0f, 1.0f, -1.0f, 0.0f, 1.0f,
-		1.0, 1.0f, -1.0f, 1.0f, 1.0f,
-		1.0f, -1.0f, -1.0f, 1.0f, 0.0f,
+	//	//back
+	//	-1.0f, -1.0f, -1.0f, 0.0f, 0.0f,
+	//	-1.0f, 1.0f, -1.0f, 0.0f, 1.0f,
+	//	1.0, 1.0f, -1.0f, 1.0f, 1.0f,
+	//	1.0f, -1.0f, -1.0f, 1.0f, 0.0f,
 
 
-		//top
-		-1.0f, 1.0f, 1.0f, 0.0f, 0.0f,
-		-1.0f, 1.0f,  -1.0f, 0.0f, 1.0f,
-		1.0, 1.0f,  -1.0f, 1.0f, 1.0f,
-		1.0f, 1.0f, 1.0f, 1.0f, 0.0f,
+	//	//top
+	//	-1.0f, 1.0f, 1.0f, 0.0f, 0.0f,
+	//	-1.0f, 1.0f,  -1.0f, 0.0f, 1.0f,
+	//	1.0, 1.0f,  -1.0f, 1.0f, 1.0f,
+	//	1.0f, 1.0f, 1.0f, 1.0f, 0.0f,
 
 
-		//down
-		-1.0f, -1.0f, 1.0f, 0.0f, 0.0f,
-		-1.0f, -1.0f,  -1.0f, 0.0f, 1.0f,
-		1.0, -1.0f,  -1.0f, 1.0f, 1.0f,
-		1.0f, -1.0f, 1.0f, 1.0f, 0.0f,
+	//	//down
+	//	-1.0f, -1.0f, 1.0f, 0.0f, 0.0f,
+	//	-1.0f, -1.0f,  -1.0f, 0.0f, 1.0f,
+	//	1.0, -1.0f,  -1.0f, 1.0f, 1.0f,
+	//	1.0f, -1.0f, 1.0f, 1.0f, 0.0f,
 
 
-		//right
-		1.0f, -1.0f, 1.0f, 0.0f, 0.0f,
-		1.0f, 1.0f, 1.0f, 0.0f, 1.0f,
-		1.0,  1.0f, -1.0f, 1.0f, 1.0f,
-		1.0f, -1.0f, -1.0f, 1.0f, 0.0f,
+	//	//right
+	//	1.0f, -1.0f, 1.0f, 0.0f, 0.0f,
+	//	1.0f, 1.0f, 1.0f, 0.0f, 1.0f,
+	//	1.0,  1.0f, -1.0f, 1.0f, 1.0f,
+	//	1.0f, -1.0f, -1.0f, 1.0f, 0.0f,
 
 
-		//left
-		-1.0f, -1.0f, 1.0f, 0.0f, 0.0f,
-		-1.0f, 1.0f, 1.0f, 0.0f, 1.0f,
-		-1.0,  1.0f, -1.0f, 1.0f, 1.0f,
-		-1.0f, -1.0f, -1.0f, 1.0f, 0.0f,
-	};
-	for (int i = 0; i < 6; i++)
-	{
-		index.push_back(0 + 4 * i);
-		index.push_back(1 + 4 * i);
-		index.push_back(2 + 4 * i);
-		index.push_back(2 + 4 * i);
-		index.push_back(3 + 4 * i);
-		index.push_back(0 + 4 * i);
-	}
+	//	//left
+	//	-1.0f, -1.0f, 1.0f, 0.0f, 0.0f,
+	//	-1.0f, 1.0f, 1.0f, 0.0f, 1.0f,
+	//	-1.0,  1.0f, -1.0f, 1.0f, 1.0f,
+	//	-1.0f, -1.0f, -1.0f, 1.0f, 0.0f,
+	//};
+	points = OBJLoader::LoadObjModel(object);
+	for (int i = 0; i < points.size(); i++)
+		index.push_back(i);
 	m_texture = new Texture(texture);
 	m_vao = new VertexArray();
 	m_vbo = new VertexBuffer(points.data(), (points.size() * sizeof(float)));
@@ -73,7 +67,6 @@ Fish::Fish(float xPos, float yPos, float zPos, float m_Xscale, float m_Yscale, f
 
 void Fish::Draw(Renderer *renderer, Shader* m_shader, glm::mat4 view, glm::mat4 projection)
 {
-	rotate(3, 0.0f, 1.0f, 0.0f);
 	m_shader->Bind();
 	glm::mat4 MVP = m_translationMatrix * m_scaleMatrix * m_rotationMatrix;
 	m_shader->SetUniformMat4f("u_MVP", projection * view * MVP);

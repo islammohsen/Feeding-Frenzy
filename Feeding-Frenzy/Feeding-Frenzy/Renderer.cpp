@@ -23,7 +23,7 @@ Renderer::Renderer()
 
 void Renderer::Clear() const
 {
-	GLCall(glClearColor(1.0f, 1.0f, 1.0f, 0.0f));
+	GLCall(glClearColor(0.0f, 0.0f, 0.0f, 0.0f));
 	GLCall(glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT));
 }
 
@@ -34,11 +34,4 @@ void Renderer::Draw(VertexArray * va, IndexBuffer * ib, Shader * shader, GLenum 
 	ib->Bind();
 	
 	GLCall(glDrawElements(mode, ib->GetCount(), GL_UNSIGNED_INT, NULL));
-}
-
-void Renderer::Draw(VertexArray * va, Shader * shader, GLuint count, GLenum mode) const
-{
-	shader->Bind();
-	va->Bind();
-	GLCall(glDrawArrays(mode, 0, count));
 }
