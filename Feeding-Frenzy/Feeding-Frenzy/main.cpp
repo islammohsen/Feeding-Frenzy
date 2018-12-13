@@ -14,6 +14,8 @@ using namespace std;
 #define BLUE 0.0f, 0.0f, 1.0f
 #define BLACK 0.0f, 0.0f, 0.0f
 
+Game *game;
+
 int keyPressed = -1;
 double MouseXPos = -1.0;
 double MouseYPos = -1.0;
@@ -21,6 +23,23 @@ double MouseYPos = -1.0;
 void SpecialKeyPressed(GLFWwindow* window, int key, int scancode, int action, int mods) {
 	if (action == GLFW_PRESS || GLFW_REPEAT)
 		keyPressed = key;
+	if (keyPressed == GLFW_KEY_RIGHT)
+		game->view_matrix *= glm::translate(20.0f, 0.0f, 0.0f);
+	if (keyPressed == GLFW_KEY_LEFT)
+		game->view_matrix *= glm::translate(-20.0f, 0.0f, 0.0f);
+	if (keyPressed == GLFW_KEY_DOWN)
+		game->view_matrix *= glm::translate(0.0f, 20.0f, 0.0f);
+	if (keyPressed == GLFW_KEY_UP)
+		game->view_matrix *= glm::translate(0.0f, -20.0f, 0.0f);
+	if (keyPressed == GLFW_KEY_Q)
+		game->view_matrix *= glm::rotate(10.0f, glm::vec3(0.0f, 1.0f, 0.0f));
+	if (keyPressed == GLFW_KEY_E)
+		game->view_matrix *= glm::rotate(-10.0f, glm::vec3(0.0f, 1.0f, 0.0f));
+	if (keyPressed == GLFW_KEY_W)
+		game->view_matrix *= glm::translate(0.0f, 0.0f, 20.0f);
+	if (keyPressed == GLFW_KEY_S)
+		game->view_matrix *= glm::translate(0.0f, 0.0f, -20.0f);;
+
 }
 
 void MouseClicked(GLFWwindow* window, int button, int action, int mods) {
@@ -41,7 +60,7 @@ int main()
 	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
 	/* Create a windowed mode window and its OpenGL context */
-	window = glfwCreateWindow(1024, 720, "Feeding Frenzy", NULL, NULL);
+	window = glfwCreateWindow(1024, 720, "Hello World", NULL, NULL);
 
 	if (!window)
 	{
@@ -69,8 +88,7 @@ int main()
 	glfwSetKeyCallback(window, &SpecialKeyPressed);
 	glfwSetMouseButtonCallback(window, &MouseClicked);
 
-	Game *game = new Game();
-
+	game = new Game();
 	game->Initialize();
 
 	/* Loop until the user closes the window */

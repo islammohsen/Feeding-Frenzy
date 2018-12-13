@@ -20,5 +20,6 @@ public:
 	Renderer();
 	void Clear() const;
 	void Draw(VertexArray *va, IndexBuffer *ib, Shader *shader, GLenum mode) const;
+	void Renderer::Draw(VertexArray * va, Shader * shader, GLuint count, GLenum mode) const;
 };
 

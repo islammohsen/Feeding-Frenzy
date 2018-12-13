@@ -19,15 +19,12 @@
 #include "Texture.h"
 #include "Fish.h"
 #include "Level.h"
-#include "Portal.h"
-
 class Game
 {
 	string textureShaderFileName = "Resources/shaders/TextureShader.shader";
 	string basicShaderFileName = "Resources/shaders/Basic.shader";
 	vector<Fish*> Fishes;
 	Level *level;
-	Portal *portal;
 	Shader *basicShader, *textureShader;
 	Renderer *renderer;
 public:
@@ -35,5 +32,6 @@ public:
 	void Initialize();
 	void Draw();
 	~Game();
+	glm::mat4 view_matrix;
 };
 

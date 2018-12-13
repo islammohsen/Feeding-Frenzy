@@ -1,4 +1,4 @@
-#include "Texture.h"
+#include "Texture.h"	 
 #include "VertexArray.h"
 #include "VertexBuffer.h"
 #include "IndexBuffer.h"
@@ -8,10 +8,12 @@
 #include <gL\glew.h>
 #include <gl\glfw3.h>
 
+
 #include <glm/glm.hpp>
 #include <glm/gtx/transform.hpp>
 
-class Fish  
+
+class Fish
 {
 	vector<float> points;
 	vector<unsigned int> index;
@@ -32,4 +34,7 @@ public:
 	void scale(float valx, float valy, float valz);
 	~Fish();
 };
+
+
+
 

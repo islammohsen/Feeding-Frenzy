@@ -36,3 +36,9 @@ void Renderer::Draw(VertexArray * va, IndexBuffer * ib, Shader * shader, GLenum 
 	GLCall(glDrawElements(mode, ib->GetCount(), GL_UNSIGNED_INT, NULL));
 }
 
+void Renderer::Draw(VertexArray * va, Shader * shader, GLuint count, GLenum mode) const
+{
+	shader->Bind();
+	va->Bind();
+	GLCall(glDrawArrays(mode, 0, count));
+}
