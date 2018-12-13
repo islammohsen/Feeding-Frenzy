@@ -1,24 +1,11 @@
 #include <iostream>
-#include <fstream>
-#include <string>
-#include <sstream>
 
 #include <gL\glew.h>
 #include <gl\glfw3.h>
-
 #include <glm/glm.hpp>
 #include <glm/gtx/transform.hpp>
 
-#include "Renderer.h"
-#include "IndexBuffer.h"
-#include "VertexBuffer.h"
-#include "VertexArray.h"
-#include "VertexBufferLayout.h"
-#include "Shader.h"
-#include "Texture.h"
-#include "Fish.h"
-#include "Level.h"
-#include "Portal.h"
+#include "Game.h"
 
 using namespace std;
 
@@ -27,8 +14,7 @@ using namespace std;
 #define BLUE 0.0f, 0.0f, 1.0f
 #define BLACK 0.0f, 0.0f, 0.0f
 
-string textureShaderFileName = "Resources/shaders/TextureShader.shader";
-string basicShaderFileName = "Resources/shaders/Basic.shader";
+Game *game;
 
 int keyPressed = -1;
 double MouseXPos = -1.0;
@@ -37,6 +23,23 @@ double MouseYPos = -1.0;
 void SpecialKeyPressed(GLFWwindow* window, int key, int scancode, int action, int mods) {
 	if (action == GLFW_PRESS || GLFW_REPEAT)
 		keyPressed = key;
+	if (keyPressed == GLFW_KEY_RIGHT)
+		game->view_matrix *= glm::translate(20.0f, 0.0f, 0.0f);
+	if (keyPressed == GLFW_KEY_LEFT)
+		game->view_matrix *= glm::translate(-20.0f, 0.0f, 0.0f);
+	if (keyPressed == GLFW_KEY_UP)
+		game->view_matrix *= glm::translate(0.0f, 20.0f, 0.0f);
+	if (keyPressed == GLFW_KEY_DOWN)
+		game->view_matrix *= glm::translate(0.0f, -20.0f, 0.0f);
+	if (keyPressed == GLFW_KEY_Q)
+		game->view_matrix *= glm::rotate(10.0f, glm::vec3(0.0f, 1.0f, 0.0f));
+	if (keyPressed == GLFW_KEY_E)
+		game->view_matrix *= glm::rotate(-10.0f, glm::vec3(0.0f, 1.0f, 0.0f));
+	if (keyPressed == GLFW_KEY_W)
+		game->view_matrix *= glm::translate(0.0f, 0.0f, 20.0f);
+	if (keyPressed == GLFW_KEY_S)
+		game->view_matrix *= glm::translate(0.0f, 0.0f, -20.0f);;
+
 }
 
 void MouseClicked(GLFWwindow* window, int button, int action, int mods) {
@@ -85,46 +88,15 @@ int main()
 	glfwSetKeyCallback(window, &SpecialKeyPressed);
 	glfwSetMouseButtonCallback(window, &MouseClicked);
 
-	Level *level = new Level(0);
-	
-	float points[] = {
-		300.0f, 300.0f, 1.0f, 0.0f, 0.0f,
-		300.0f, 500.0f, 1.0f, 0.0f, 1.0f,
-		500.0f, 500.0f, 1.0f, 1.0f, 1.0f,
-		500.0f, 300.0f, 1.0f, 1.0f, 0.0f
-	};
-	unsigned int index[] = { 0, 1, 2, 2, 3, 0 };
-	
-	vector<Fish*> F;
-	F.push_back(new Fish(points, sizeof(points), index, 6, "Resources/Textures/Fish/Fish-1.png", 0.0f, 0.0f));
-	Renderer *renderer = new Renderer();
-	Shader *textureShader = new Shader(textureShaderFileName);
-	Shader *basicShader = new Shader(basicShaderFileName);
-
-	float portalPoints[] = {
-		700.0, 100.0f, 1.0f, 0.0f, 0.0f,
-		700.0f, 300.0f, 1.0f, 0.0f, 1.0f,
-		850.0f, 300.0f, 1.0f, 1.0f, 1.0f,
-		850.0f, 100.0f, 1.0f, 1.0f, 0.0f
-	};
-	unsigned int portalIndex[] = { 0, 1, 2, 2, 3, 0 };
-	Portal *portal = new Portal(portalPoints, sizeof(portalPoints), portalIndex, 6, "Resources/Textures/Portal/Portal-1.png");
+	game = new Game();
+	game->Initialize();
 
 	/* Loop until the user closes the window */
 	while (!glfwWindowShouldClose(window))
 	{
 		/* Render here */
-		renderer->Clear();
 
-		glm::mat4 proj = glm::ortho(0.0f, 1024.0f, 0.0f, 720.0f);
-		glm::mat4 view = glm::mat4(1);
-		level->DrawBoarder(renderer, basicShader, view, proj);
-
-		level->DrawBackground(renderer, textureShader, view, proj);
-		for (auto &x : F)
-			x->Draw(renderer, textureShader, view, proj);
-		
-		portal->Draw(renderer, textureShader, view, proj);
+		game->Draw();
 
 		/* Swap front and back buffers */
 		glfwSwapBuffers(window);
@@ -132,8 +104,6 @@ int main()
 		/* Poll for and process events */
 		glfwPollEvents();
 	}
-
-	delete renderer;
 
 	glfwTerminate();
 	return 0;

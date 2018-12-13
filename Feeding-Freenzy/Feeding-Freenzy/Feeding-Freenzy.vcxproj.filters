@@ -66,6 +66,9 @@
     <ClCompile Include="Portal.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Game.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="IndexBuffer.h">
@@ -101,6 +104,9 @@
     <ClInclude Include="Portal.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Game.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\Shaders\Basic.shader">
@@ -123,10 +129,25 @@
     <Image Include="Resources\Textures\Background\background2.png">
       <Filter>Resource Files\Textures\Background</Filter>
     </Image>
-    <Image Include="Resources\Textures\Fish\Fish-2.png">
+    <Image Include="Resources\Textures\Fish\Fish2.png">
       <Filter>Resource Files\Textures\Fish</Filter>
     </Image>
-    <Image Include="Resources\Textures\Fish\Fish-3.png">
+    <Image Include="Resources\Textures\Fish\Fish3.png">
+      <Filter>Resource Files\Textures\Fish</Filter>
+    </Image>
+    <Image Include="Resources\Textures\Fish\Fish4.png">
+      <Filter>Resource Files\Textures\Fish</Filter>
+    </Image>
+    <Image Include="Resources\Textures\Fish\Fish5.png">
+      <Filter>Resource Files\Textures\Fish</Filter>
+    </Image>
+    <Image Include="Resources\Textures\Fish\Whale.png">
+      <Filter>Resource Files\Textures\Fish</Filter>
+    </Image>
+    <Image Include="Resources\Textures\Fish\part_of_fish.png">
+      <Filter>Resource Files\Textures\Fish</Filter>
+    </Image>
+    <Image Include="Resources\Textures\Fish\bricks.png">
       <Filter>Resource Files\Textures\Fish</Filter>
     </Image>
   </ItemGroup>

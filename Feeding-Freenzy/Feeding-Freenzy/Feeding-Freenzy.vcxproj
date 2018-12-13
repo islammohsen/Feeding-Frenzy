@@ -114,6 +114,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Fish.cpp" />
+    <ClCompile Include="Game.cpp" />
     <ClCompile Include="IndexBuffer.cpp" />
     <ClCompile Include="Level.cpp" />
     <ClCompile Include="main.cpp" />
@@ -128,6 +129,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Fish.h" />
+    <ClInclude Include="Game.h" />
     <ClInclude Include="IndexBuffer.h" />
     <ClInclude Include="Level.h" />
     <ClInclude Include="Portal.h" />
@@ -146,9 +148,14 @@
   <ItemGroup>
     <Image Include="Resources\Textures\Background\BackGround-2.png" />
     <Image Include="Resources\Textures\Background\background2.png" />
+    <Image Include="Resources\Textures\Fish\bricks.png" />
     <Image Include="Resources\Textures\Fish\Fish-1.png" />
-    <Image Include="Resources\Textures\Fish\Fish-2.png" />
-    <Image Include="Resources\Textures\Fish\Fish-3.png" />
+    <Image Include="Resources\Textures\Fish\Fish2.png" />
+    <Image Include="Resources\Textures\Fish\Fish3.png" />
+    <Image Include="Resources\Textures\Fish\Fish4.png" />
+    <Image Include="Resources\Textures\Fish\Fish5.png" />
+    <Image Include="Resources\Textures\Fish\part_of_fish.png" />
+    <Image Include="Resources\Textures\Fish\Whale.png" />
     <Image Include="Resources\Textures\Portal\Portal-1.png" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
