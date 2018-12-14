@@ -19,6 +19,8 @@
 #include "Texture.h"
 #include "Fish.h"
 #include "Level.h"
+#include "ModelLoader.h"
+
 class Game
 {
 	string textureShaderFileName = "Resources/shaders/TextureShader.shader";

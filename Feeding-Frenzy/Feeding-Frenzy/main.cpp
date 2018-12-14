@@ -23,9 +23,9 @@ double MouseYPos = -1.0;
 void SpecialKeyPressed(GLFWwindow* window, int key, int scancode, int action, int mods) {
 	if (action == GLFW_PRESS || GLFW_REPEAT)
 		keyPressed = key;
-	if (keyPressed == GLFW_KEY_RIGHT)
-		game->view_matrix *= glm::translate(20.0f, 0.0f, 0.0f);
 	if (keyPressed == GLFW_KEY_LEFT)
+		game->view_matrix *= glm::translate(20.0f, 0.0f, 0.0f);
+	if (keyPressed == GLFW_KEY_RIGHT)
 		game->view_matrix *= glm::translate(-20.0f, 0.0f, 0.0f);
 	if (keyPressed == GLFW_KEY_DOWN)
 		game->view_matrix *= glm::translate(0.0f, 20.0f, 0.0f);

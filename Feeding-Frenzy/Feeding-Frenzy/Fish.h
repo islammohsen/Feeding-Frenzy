@@ -11,11 +11,11 @@
 
 #include <glm/glm.hpp>
 #include <glm/gtx/transform.hpp>
-
+#include "ModelLoader.h"
 
 class Fish
 {
-	vector<float> points;
+	Model model;
 	vector<unsigned int> index;
 	VertexArray *m_vao;
 	IndexBuffer *m_ibo;

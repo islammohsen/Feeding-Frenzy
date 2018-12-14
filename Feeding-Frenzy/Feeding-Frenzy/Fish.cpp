@@ -5,54 +5,12 @@ Fish::Fish(float xPos, float yPos, float zPos, float m_Xscale, float m_Yscale, f
 {
 	this->m_speed = m_speed;
 	this->m_scale = m_Xscale * m_Yscale * m_Zscale;
-	//points = {
-	//	//front
-	//	-1.0f, -1.0f, 1.0f, 0.0f, 0.0f,
-	//	-1.0f, 1.0f,  1.0f, 0.0f, 1.0f,
-	//	1.0, 1.0f,  1.0f, 1.0f, 1.0f,
-	//	1.0f, -1.0f, 1.0f, 1.0f, 0.0f,
-
-
-	//	//back
-	//	-1.0f, -1.0f, -1.0f, 0.0f, 0.0f,
-	//	-1.0f, 1.0f, -1.0f, 0.0f, 1.0f,
-	//	1.0, 1.0f, -1.0f, 1.0f, 1.0f,
-	//	1.0f, -1.0f, -1.0f, 1.0f, 0.0f,
-
-
-	//	//top
-	//	-1.0f, 1.0f, 1.0f, 0.0f, 0.0f,
-	//	-1.0f, 1.0f,  -1.0f, 0.0f, 1.0f,
-	//	1.0, 1.0f,  -1.0f, 1.0f, 1.0f,
-	//	1.0f, 1.0f, 1.0f, 1.0f, 0.0f,
-
-
-	//	//down
-	//	-1.0f, -1.0f, 1.0f, 0.0f, 0.0f,
-	//	-1.0f, -1.0f,  -1.0f, 0.0f, 1.0f,
-	//	1.0, -1.0f,  -1.0f, 1.0f, 1.0f,
-	//	1.0f, -1.0f, 1.0f, 1.0f, 0.0f,
-
-
-	//	//right
-	//	1.0f, -1.0f, 1.0f, 0.0f, 0.0f,
-	//	1.0f, 1.0f, 1.0f, 0.0f, 1.0f,
-	//	1.0,  1.0f, -1.0f, 1.0f, 1.0f,
-	//	1.0f, -1.0f, -1.0f, 1.0f, 0.0f,
-
-
-	//	//left
-	//	-1.0f, -1.0f, 1.0f, 0.0f, 0.0f,
-	//	-1.0f, 1.0f, 1.0f, 0.0f, 1.0f,
-	//	-1.0,  1.0f, -1.0f, 1.0f, 1.0f,
-	//	-1.0f, -1.0f, -1.0f, 1.0f, 0.0f,
-	//};
-	points = OBJLoader::LoadObjModel(object);
-	for (int i = 0; i < points.size(); i++)
+	model = ModelLoader::LoadModel(object);
+	for (int i = 0; i < model.m_data.size(); i++)
 		index.push_back(i);
 	m_texture = new Texture(texture);
 	m_vao = new VertexArray();
-	m_vbo = new VertexBuffer(points.data(), (points.size() * sizeof(float)));
+	m_vbo = new VertexBuffer(model.m_data.data(), (model.m_data.size() * sizeof(float)));
 	m_ibo = new IndexBuffer(index.data(), index.size());
 	VertexBufferLayout layout;
 	layout.push<float>(3);
@@ -68,8 +26,9 @@ Fish::Fish(float xPos, float yPos, float zPos, float m_Xscale, float m_Yscale, f
 void Fish::Draw(Renderer *renderer, Shader* m_shader, glm::mat4 view, glm::mat4 projection)
 {
 	m_shader->Bind();
-	glm::mat4 MVP = m_translationMatrix * m_scaleMatrix * m_rotationMatrix;
-	m_shader->SetUniformMat4f("u_MVP", projection * view * MVP);
+	rotate(3.0f, 0.0f, 1.0f, 0.0f);
+	glm::mat4 modelMatrix = m_translationMatrix * m_rotationMatrix * model.m_rotation * m_scaleMatrix;
+	m_shader->SetUniformMat4f("u_MVP", projection * view * modelMatrix);
 	m_shader->setUniform1i("myTextureSampler", 0);
 	m_texture->Bind(0);
 	renderer->Draw(m_vao, m_ibo, m_shader, GL_TRIANGLES);
@@ -84,7 +43,7 @@ void Fish::move(float valx, float valy, float valz)
 
 void Fish::rotate(float angle, float x, float y, float z)
 {
-	m_rotationMatrix = glm::rotate(m_rotationMatrix, angle, glm::vec3(x, y, z));
+	m_rotationMatrix *= glm::rotate(angle, glm::vec3(x, y, z));
 }
 
 
@@ -99,6 +58,7 @@ Fish::~Fish()
 	delete m_vao;
 	delete m_vbo;
 	delete m_ibo;
+	delete m_texture;
 }
 
 

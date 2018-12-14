@@ -3,6 +3,8 @@
 #include <vector>
 #include <fstream>
 #include <algorithm>
+#include <glm/glm.hpp>
+#include <glm/gtx/transform.hpp>
 
 using namespace std;
 
@@ -14,5 +16,6 @@ static class OBJLoader
 	static void mult(float mat4[4][4], float vec[4]);
 public:
 	static vector<float> LoadObjModel(string FileName);
+	static glm::mat4 LoadObjRotation(string FileName);
 };
 

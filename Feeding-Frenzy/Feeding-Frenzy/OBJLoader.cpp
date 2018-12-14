@@ -7,10 +7,10 @@ vector<float> OBJLoader::LoadObjModel(string FileName)
 {
 	vector<float> Points;
 	vector<float> vertex, texture, normal;
-	fstream fs(FileName, std::fstream::in | std::fstream::out);
-	char temp[1024];
+	fstream fs("Resources/objects/" + FileName + ".obj", std::fstream::in | std::fstream::out);
+	char temp[256];
 	bool face = 0;
-	while (fs.getline(temp, 1024))
+	while (fs.getline(temp, 256))
 	{
 		string line;
 		for (int i = 0; i < temp[i]; i++)
@@ -44,7 +44,7 @@ vector<float> OBJLoader::LoadObjModel(string FileName)
 			texture.push_back(x);
 			texture.push_back(y);
 		}
-		else if(currentLine[0] == "vn")
+		else if (currentLine[0] == "vn")
 		{
 			stringstream ss;
 			ss << currentLine[1];
@@ -57,21 +57,68 @@ vector<float> OBJLoader::LoadObjModel(string FileName)
 			normal.push_back(y);
 			normal.push_back(z);
 		}
-		else if (currentLine[0] == "f")
-		{
-			if (!face)
-			{
-				normalize(vertex);
-				face = 1;
-			}
-			addVertex(Points, currentLine[1], vertex, texture, normal);
-			addVertex(Points, currentLine[2], vertex, texture, normal);
-			addVertex(Points, currentLine[3], vertex, texture, normal);
-		}
 	}
 	fs.close();
+	normalize(vertex);
+	fs.open("Resources/objects/" + FileName + ".obj", std::fstream::in | std::fstream::out);
+	while (fs.getline(temp, 256))
+	{
+		string line;
+		for (int i = 0; i < 256; i++)
+		{
+			if (temp[i] == 0)
+				break;
+			line += temp[i];
+		}
+		if (line.empty())
+			continue;
+		vector<string> currentLine = split(line, ' ');
+		if (currentLine[0] == "f")
+		{
+			if (currentLine.size() == 4) {
+				addVertex(Points, currentLine[1], vertex, texture, normal);
+				addVertex(Points, currentLine[2], vertex, texture, normal);
+				addVertex(Points, currentLine[3], vertex, texture, normal);
+			}
+			else
+			{
+				//first face
+				addVertex(Points, currentLine[1], vertex, texture, normal);
+				addVertex(Points, currentLine[2], vertex, texture, normal);
+				addVertex(Points, currentLine[3], vertex, texture, normal);
+				//second face
+				addVertex(Points, currentLine[2], vertex, texture, normal);
+				addVertex(Points, currentLine[3], vertex, texture, normal);
+				addVertex(Points, currentLine[1], vertex, texture, normal);
+			}
+		}
+	}
 	return Points;
 	
+}
+
+glm::mat4 OBJLoader::LoadObjRotation(string FileName)
+{
+	fstream fs("Resources/Rotations/" + FileName + ".txt", std::fstream::in | std::fstream::out);
+	char temp[256];
+	glm::mat4 ret = glm::mat4(1);
+	while (fs.getline(temp, 256))
+	{
+		string line;
+		for (int i = 0; i < 256; i++)
+		{
+			if (temp[i] == 0)
+				break;
+			line += temp[i];
+		}
+		vector<string> currentLine = split(line, ' ');
+		float angle, x, y, z;
+		stringstream ss;
+		ss << currentLine[0] << ' ' << currentLine[1] << ' ' << currentLine[2] << ' ' << currentLine[3];
+		ss >> angle >> x >> y >> z;
+		ret = glm::rotate(ret, angle, glm::vec3(x, y, z));
+	}
+	return ret;
 }
 
 void OBJLoader::addVertex(vector<float> &Points, string s, vector<float> vertex, vector<float> texture, vector<float> normal)
@@ -88,7 +135,7 @@ void OBJLoader::addVertex(vector<float> &Points, string s, vector<float> vertex,
 	Points.push_back(vertex[vertexIndex * 3 + 1]);
 	Points.push_back(vertex[vertexIndex * 3 + 2]);
 	Points.push_back(texture[textureIndex * 2]);
-	Points.push_back(texture[textureIndex * 2 + 1]);
+	Points.push_back(1 - texture[textureIndex * 2 + 1]);
 }
 
 void OBJLoader::normalize(vector<float>& points)

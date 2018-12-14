@@ -124,8 +124,8 @@
     <ClCompile Include="IndexBuffer.cpp" />
     <ClCompile Include="Level.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="ModelLoader.cpp" />
     <ClCompile Include="OBJLoader.cpp" />
-    <ClCompile Include="Portal.cpp" />
     <ClCompile Include="Renderer.cpp" />
     <ClCompile Include="Shader.cpp" />
     <ClCompile Include="stb_image.cpp" />
@@ -139,8 +139,8 @@
     <ClInclude Include="Game.h" />
     <ClInclude Include="IndexBuffer.h" />
     <ClInclude Include="Level.h" />
+    <ClInclude Include="ModelLoader.h" />
     <ClInclude Include="OBJLoader.h" />
-    <ClInclude Include="Portal.h" />
     <ClInclude Include="Renderer.h" />
     <ClInclude Include="Shader.h" />
     <ClInclude Include="stb_image.h" />

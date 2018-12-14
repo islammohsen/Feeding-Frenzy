@@ -6,16 +6,15 @@ Game::Game()
 
 void Game::Initialize()
 {
-
+	ModelLoader::ImportModels();
 	renderer = new Renderer();
 	textureShader = new Shader(textureShaderFileName);
 	basicShader = new Shader(basicShaderFileName);
 	level = new Level(0);
-	Fishes.push_back(new Fish(1.0f, 1.0f, 600.0f, 300.0f, 300.0f, 500.0f, 1.0f, "Resources/objects/TropicalFish02.obj", "Resources/Textures/Fish/TropicalFish02.jpg"));
-	Fishes[0]->rotate(90.0f, 0.0f, 1.0f, 0.0f);
+	Fishes.push_back(new Fish(1.0f, 1.0f, 200.0f, 150.0f, 75.0f, 50.0f, 1.0f, "21856_Koi_v1", "Resources/Textures/Fish/TropicalFish01.jpg"));
 	view_matrix = glm::lookAt(
-		glm::vec3((1024.0f / 2.0f), (720.0f / 2.0f), 720.0f),
-		glm::vec3((1024.0f / 2.0f), (720.0f / 2.0f), -1.0f),
+		glm::vec3(0.0f, 0.0f, 720.0f),
+		glm::vec3(0.0f, 0.0f, 0.0f),
 		glm::vec3(0.0f, 1.0f, 0.0f)
 	);
 }
