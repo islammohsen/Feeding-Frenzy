@@ -164,6 +164,26 @@
     <Image Include="Resources\Textures\Fish\Whale.png" />
     <Image Include="Resources\Textures\Portal\Portal-1.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Object Include="Resources\objects\19412_Hammerhead_Shark_v2.obj" />
+    <Object Include="Resources\objects\21856_Koi_v1.obj" />
+    <Object Include="Resources\objects\3d-model.obj" />
+    <Object Include="Resources\objects\TropicalFish01.obj" />
+    <Object Include="Resources\objects\TropicalFish02.obj" />
+    <Object Include="Resources\objects\TropicalFish03.obj" />
+    <Object Include="Resources\objects\TropicalFish04.obj" />
+    <Object Include="Resources\objects\TropicalFish05.obj" />
+    <Object Include="Resources\objects\TropicalFish06.obj" />
+    <Object Include="Resources\objects\TropicalFish07.obj" />
+    <Object Include="Resources\objects\TropicalFish08.obj" />
+    <Object Include="Resources\objects\TropicalFish09.obj" />
+    <Object Include="Resources\objects\TropicalFish10.obj" />
+    <Object Include="Resources\objects\TropicalFish11.obj" />
+    <Object Include="Resources\objects\TropicalFish12.obj" />
+    <Object Include="Resources\objects\TropicalFish13.obj" />
+    <Object Include="Resources\objects\TropicalFish14.obj" />
+    <Object Include="Resources\objects\TropicalFish15.obj" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
