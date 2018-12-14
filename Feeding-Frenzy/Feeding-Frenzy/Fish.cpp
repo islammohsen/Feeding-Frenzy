@@ -1,5 +1,9 @@
 #include "Fish.h"	 
 
+Fish::Fish()
+{
+
+}
 
 Fish::Fish(float xPos, float yPos, float zPos, float m_Xscale, float m_Yscale, float m_Zscale, float m_speed, string object, string texture)
 {

@@ -75,6 +75,12 @@
     <ClCompile Include="ModelLoader.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Ai.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Camera.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Fish.h">
@@ -116,6 +122,12 @@
     <ClInclude Include="ModelLoader.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Ai.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Camera.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\shaders\Basic.shader">
@@ -153,61 +165,5 @@
     <Image Include="Resources\Textures\Portal\Portal-1.png">
       <Filter>Resource Files\Textures\Portal</Filter>
     </Image>
-  </ItemGroup>
-  <ItemGroup>
-    <Object Include="Resources\objects\3d-model.obj">
-      <Filter>Resource Files\objects</Filter>
-    </Object>
-    <Object Include="Resources\objects\19412_Hammerhead_Shark_v2.obj">
-      <Filter>Resource Files\objects</Filter>
-    </Object>
-    <Object Include="Resources\objects\21856_Koi_v1.obj">
-      <Filter>Resource Files\objects</Filter>
-    </Object>
-    <Object Include="Resources\objects\TropicalFish01.obj">
-      <Filter>Resource Files\objects</Filter>
-    </Object>
-    <Object Include="Resources\objects\TropicalFish02.obj">
-      <Filter>Resource Files\objects</Filter>
-    </Object>
-    <Object Include="Resources\objects\TropicalFish03.obj">
-      <Filter>Resource Files\objects</Filter>
-    </Object>
-    <Object Include="Resources\objects\TropicalFish04.obj">
-      <Filter>Resource Files\objects</Filter>
-    </Object>
-    <Object Include="Resources\objects\TropicalFish05.obj">
-      <Filter>Resource Files\objects</Filter>
-    </Object>
-    <Object Include="Resources\objects\TropicalFish06.obj">
-      <Filter>Resource Files\objects</Filter>
-    </Object>
-    <Object Include="Resources\objects\TropicalFish07.obj">
-      <Filter>Resource Files\objects</Filter>
-    </Object>
-    <Object Include="Resources\objects\TropicalFish08.obj">
-      <Filter>Resource Files\objects</Filter>
-    </Object>
-    <Object Include="Resources\objects\TropicalFish09.obj">
-      <Filter>Resource Files\objects</Filter>
-    </Object>
-    <Object Include="Resources\objects\TropicalFish10.obj">
-      <Filter>Resource Files\objects</Filter>
-    </Object>
-    <Object Include="Resources\objects\TropicalFish11.obj">
-      <Filter>Resource Files\objects</Filter>
-    </Object>
-    <Object Include="Resources\objects\TropicalFish12.obj">
-      <Filter>Resource Files\objects</Filter>
-    </Object>
-    <Object Include="Resources\objects\TropicalFish13.obj">
-      <Filter>Resource Files\objects</Filter>
-    </Object>
-    <Object Include="Resources\objects\TropicalFish14.obj">
-      <Filter>Resource Files\objects</Filter>
-    </Object>
-    <Object Include="Resources\objects\TropicalFish15.obj">
-      <Filter>Resource Files\objects</Filter>
-    </Object>
   </ItemGroup>
 </Project>
