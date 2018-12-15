@@ -37,6 +37,19 @@ void Ai::generateNextPoint()
 	}
 }
 
+void Ai::specificAttack(glm::vec2 target)
+{
+	this->nextXPos = target.x;
+	this->nextYPos = target.y;
+}
+
+bool Ai::pointInRange(glm::vec2 target, float distance)
+{
+	float currDist = (target.x - currentXPos) * (target.x - currentXPos) + (target.y - currentYPos) * (target.y - currentYPos);
+	distance *= distance;
+	return currDist <= distance;
+}
+
 void Ai::setFishCount(int fishCount)
 {
 	this->fishCount = fishCount;

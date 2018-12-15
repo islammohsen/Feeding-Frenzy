@@ -21,6 +21,8 @@ public:
 	void setNextRandomPosition();
 	void generateNextPoint();
 	void getGoing();
+	void specificAttack(glm::vec2);
+	bool pointInRange(glm::vec2, float);
 	int getFishCount();
 	void setFishCount(int);
 	
