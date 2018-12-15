@@ -21,22 +21,26 @@
 #include "Level.h"
 #include "ModelLoader.h"
 #include "Ai.h"
+#include "Hero.h"
 
 class Game
 {
 	string textureShaderFileName = "Resources/shaders/TextureShader.shader";
 	string basicShaderFileName = "Resources/shaders/Basic.shader";
-	vector<Fish*> Fishes;
 	Level *level;
 	Shader *basicShader, *textureShader;
 	Renderer *renderer;
-	Ai mainBot;
-	vector<Ai*> bots;
+	vector<Ai*> botsType1, botsType2, botsType3;
+	void Attack();
+	float time;
 public:
+	Hero *ourHero;
 	Game();
 	void Initialize();
 	void Draw();
-	bool Collision(vector<glm::vec2>, glm::vec2, vector<glm::vec2>);
+	void Update();
+	void CheckCollision();
+	bool Collision(glm::vec2, vector<glm::vec2>);
 	~Game();
 	glm::mat4 view_matrix;
 };

@@ -17,8 +17,10 @@
 
 class Fish
 {
+protected:
 	Model model;
 	vector<unsigned int> index;
+	vector<glm::vec2> collisionPolygon;
 	VertexArray *m_vao;
 	IndexBuffer *m_ibo;
 	VertexBuffer *m_vbo;
@@ -28,6 +30,8 @@ class Fish
 	glm::mat4 m_translationMatrix;
 	glm::mat4 m_scaleMatrix;
 	glm::mat4 m_rotationMatrix;
+private:
+	void GetCollisionPoints();
 public:
 	Fish();
 	Fish(float xPos, float yPos, float zPos, float m_Xscale, float m_Yscale, float m_Zscale, float m_speed, string object, string texture);
@@ -35,6 +39,10 @@ public:
 	void move(float valx, float valy, float valz);
 	void rotate(float angle, float x, float y, float z);
 	void scale(float valx, float valy, float valz);
+	void ResetRotation();
+	glm::vec2 GetPosition();
+	glm::vec2 GetMouth();
+	vector<glm::vec2> GetCollisionPolygon();
 	~Fish();
 };
 #endif

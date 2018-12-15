@@ -2,30 +2,27 @@
 #ifndef AI_H
 #define AI_H
 #include "Fish.h"
+#include <time.h>
+#include <chrono>
+#include <random>
+#include <glm/glm.hpp>
+#include <glm/gtx/transform.hpp>
 
 class Ai : public Fish
 {
-	int fishCount;
 	float nextXPos;
 	float nextYPos;
 	float currentXPos;
 	float currentYPos;
-	float speed;
-	float initialAngle;
-public:
-	
-	Fish *fish;
-	Ai();
-	
-	Ai* initialRandomPosition(string, string);
+private:
+	void getRotations();
 	void setNextRandomPosition();
 	void generateNextPoint();
+public:
+	Ai(float m_Xscale, float m_Yscale, float m_Zscale, float m_speed, string object, string texture);
 	void getGoing();
 	void specificAttack(glm::vec2);
 	bool pointInRange(glm::vec2, float);
-	int getFishCount();
-	void setFishCount(int);
-	
 	~Ai();
 };
 #endif

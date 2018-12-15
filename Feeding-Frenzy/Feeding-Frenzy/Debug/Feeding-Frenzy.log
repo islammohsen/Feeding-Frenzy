@@ -1,17 +1,7 @@
-﻿  Ai.cpp
-c:\users\eagle\onedrive\documents\github\feeding-frenzy\feeding-frenzy\feeding-frenzy\objloader.h(20): warning C4091: 'static ': ignored on left of 'OBJLoader' when no variable is declared
-c:\users\eagle\onedrive\documents\github\feeding-frenzy\feeding-frenzy\feeding-frenzy\modelloader.h(28): warning C4091: 'static ': ignored on left of 'ModelLoader' when no variable is declared
-c:\users\eagle\onedrive\documents\github\feeding-frenzy\feeding-frenzy\feeding-frenzy\ai.cpp(7): warning C4244: 'argument': conversion from '_Rep' to 'unsigned int', possible loss of data
-          with
-          [
-              _Rep=__int64
-          ]
-  Game.cpp
-c:\users\eagle\onedrive\documents\github\feeding-frenzy\feeding-frenzy\feeding-frenzy\objloader.h(20): warning C4091: 'static ': ignored on left of 'OBJLoader' when no variable is declared
-c:\users\eagle\onedrive\documents\github\feeding-frenzy\feeding-frenzy\feeding-frenzy\modelloader.h(28): warning C4091: 'static ': ignored on left of 'ModelLoader' when no variable is declared
-c:\users\eagle\onedrive\documents\github\feeding-frenzy\feeding-frenzy\feeding-frenzy\game.cpp(9): warning C4018: '<': signed/unsigned mismatch
-  main.cpp
-c:\users\eagle\onedrive\documents\github\feeding-frenzy\feeding-frenzy\feeding-frenzy\objloader.h(20): warning C4091: 'static ': ignored on left of 'OBJLoader' when no variable is declared
-c:\users\eagle\onedrive\documents\github\feeding-frenzy\feeding-frenzy\feeding-frenzy\modelloader.h(28): warning C4091: 'static ': ignored on left of 'ModelLoader' when no variable is declared
-  Generating Code...
-  Feeding-Frenzy.vcxproj -> C:\Users\eagle\OneDrive\Documents\GitHub\Feeding-Frenzy\Feeding-Frenzy\Debug\Feeding-Frenzy.exe
+﻿  main.cpp
+d:\git\feeding-frenzy\feeding-frenzy\feeding-frenzy\feeding-frenzy\objloader.h(20): warning C4091: 'static ': ignored on left of 'OBJLoader' when no variable is declared
+d:\git\feeding-frenzy\feeding-frenzy\feeding-frenzy\feeding-frenzy\modelloader.h(28): warning C4091: 'static ': ignored on left of 'ModelLoader' when no variable is declared
+d:\git\feeding-frenzy\feeding-frenzy\feeding-frenzy\feeding-frenzy\main.cpp(12): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+d:\git\feeding-frenzy\feeding-frenzy\feeding-frenzy\feeding-frenzy\main.cpp(12): warning C4244: 'initializing': conversion from 'double' to 'const float', possible loss of data
+d:\git\feeding-frenzy\feeding-frenzy\feeding-frenzy\feeding-frenzy\main.cpp(45): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+  Feeding-Frenzy.vcxproj -> D:\Git\Feeding-Frenzy\Feeding-Frenzy\Feeding-Frenzy\Debug\Feeding-Frenzy.exe

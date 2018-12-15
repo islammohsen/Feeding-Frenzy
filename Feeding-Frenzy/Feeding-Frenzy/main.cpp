@@ -9,6 +9,8 @@
 
 using namespace std;
 
+const float PI = acos(-1);
+
 #define RED 1.0f, 0.0f, 0.0f
 #define GREEN 0.0f, 1.0f, 0.0f
 #define BLUE 0.0f, 0.0f, 1.0f
@@ -17,35 +19,47 @@ using namespace std;
 Game *game;
 
 int keyPressed = -1;
-double MouseXPos = -1.0;
-double MouseYPos = -1.0;
 
 void SpecialKeyPressed(GLFWwindow* window, int key, int scancode, int action, int mods) {
 	if (action == GLFW_PRESS || GLFW_REPEAT)
 		keyPressed = key;
-	if (keyPressed == GLFW_KEY_LEFT)
-		game->view_matrix *= glm::translate(20.0f, 0.0f, 0.0f);
-	if (keyPressed == GLFW_KEY_RIGHT)
-		game->view_matrix *= glm::translate(-20.0f, 0.0f, 0.0f);
-	if (keyPressed == GLFW_KEY_DOWN)
-		game->view_matrix *= glm::translate(0.0f, 20.0f, 0.0f);
-	if (keyPressed == GLFW_KEY_UP)
-		game->view_matrix *= glm::translate(0.0f, -20.0f, 0.0f);
 	if (keyPressed == GLFW_KEY_Q)
 		game->view_matrix *= glm::rotate(10.0f, glm::vec3(0.0f, 1.0f, 0.0f));
 	if (keyPressed == GLFW_KEY_E)
 		game->view_matrix *= glm::rotate(-10.0f, glm::vec3(0.0f, 1.0f, 0.0f));
 	if (keyPressed == GLFW_KEY_W)
-		game->view_matrix *= glm::translate(0.0f, 0.0f, 20.0f);
+		game->ourHero->playerCamera.Walk(20.0f);
 	if (keyPressed == GLFW_KEY_S)
-		game->view_matrix *= glm::translate(0.0f, 0.0f, -20.0f);;
+		game->ourHero->playerCamera.Walk(-20.0f);
 
 }
 
-void MouseClicked(GLFWwindow* window, int button, int action, int mods) {
-	if (action == GLFW_MOUSE_BUTTON_LEFT)
-		glfwGetCursorPos(window, &MouseXPos, &MouseYPos);
+glm::vec2 normalize(glm::vec2 v)
+{
+	float mat[3][3] = { 
+		{ 2.0f / (1024.0f - 0.0f), 0.0f, -((1024.0f + 0.0f) / (1024.0f - 0.0f)) },
+		{ 0.0f, 2.0f / (720.0f - 0.0f), -((720.0f + 0.0f) / (720.0f - 0.0f)) },
+		{ 0.0f, 0.0f, 1.0f } 
+	};
+	glm::vec3 vv = glm::vec3(v, 1.0f);
+	glm::vec3 ans;
+	for (int i = 0; i < 3; i++)
+	{
+		ans[i] = 0;
+		for (int j = 0; j < 3; j++)
+			ans[i] += mat[i][j] * vv[j];
+	}
+	return glm::vec2(ans.x, ans.y);
 }
+
+void MouseMoved(GLFWwindow* window, double MouseXPos, double MouseYPos) {
+	glm::vec2 v = normalize(glm::vec2(MouseXPos, MouseYPos));
+	v.x *= 1024;
+	v.y *= 720.0f;
+	v.y *= -1;
+	game->ourHero->GoTo(game->ourHero->currentXPos + v.x, game->ourHero->currentYPos + v.y);
+}
+
 
 int main()
 {
@@ -86,7 +100,10 @@ int main()
 	// Ensure we can capture the escape key being pressed below
 	glfwSetInputMode(window, GLFW_STICKY_KEYS, GL_TRUE);
 	glfwSetKeyCallback(window, &SpecialKeyPressed);
-	glfwSetMouseButtonCallback(window, &MouseClicked);
+
+	glfwSetCursorPos(window, 1024.0f / 2.0f, 720.0f / 2.0f);
+	glfwSetCursorPosCallback(window, &MouseMoved);
+	
 
 	game = new Game();
 	game->Initialize();
@@ -96,6 +113,8 @@ int main()
 	{
 		/* Render here */
 
+		game->Update();
+		game->CheckCollision();
 		game->Draw();
 
 		/* Swap front and back buffers */

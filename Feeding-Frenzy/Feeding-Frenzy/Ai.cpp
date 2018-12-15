@@ -1,32 +1,28 @@
 #include "Ai.h"
-#include <time.h>
-#include <chrono>
-#include <random>
+
+const float PI = acos(-1);
 
 auto seed = chrono::high_resolution_clock::now().time_since_epoch().count();
 mt19937 mt_rand(seed);
 
-Ai::Ai()
+Ai::Ai(float m_Xscale, float m_Yscale, float m_Zscale, float m_speed, string object, string texture):
+	Fish(0.0f, 0.0f, 0.0f, m_Xscale, m_Yscale, m_Zscale, m_speed, object, texture)
 {
-	fishCount = 10;
-	fish = new Fish();
-}
-
-Ai* Ai::initialRandomPosition(string model, string texture)
-{
-	float xPos = (mt_rand() % 2048) - 1024.0f, yPos = (mt_rand() % 1440) - 720.0f, zPos = 512.0f, m_Xscale = 40.f, m_Yscale = 40.f, m_Zscale = 20.0f, m_speed = 1.0f;
-	Ai* ret = new Ai();
-	ret->currentXPos = xPos;
-	ret->currentYPos = yPos;
-	ret->fish = new Fish(xPos, yPos, zPos, m_Xscale, m_Yscale, m_Zscale, m_speed, model, texture);
-	ret->speed = m_speed;
+	float xPos = (mt_rand() % 2048) - 1024.0f, yPos = (mt_rand() % 1440) - 720.0f, zPos = 512.0f;
+	move(xPos, yPos, zPos);
+	currentXPos = xPos;
+	currentYPos = yPos;
 	setNextRandomPosition();
-	return ret;
 }
 
 void Ai::setNextRandomPosition()
 {
-	this->nextXPos = (mt_rand() % 2048) - 1024.0f, this->nextYPos = (mt_rand() % 1440) - 720.0f;
+	float newNextXPos, newNextYPos;
+	do {
+		newNextXPos = (mt_rand() % 2048) - 1024.0f, newNextYPos = (mt_rand() % 1440) - 720.0f;
+	} while (fabs(newNextXPos - nextXPos) < 300.0f);
+	nextXPos = newNextXPos;
+	nextYPos = newNextYPos;
 }
 
 void Ai::generateNextPoint()
@@ -50,33 +46,43 @@ bool Ai::pointInRange(glm::vec2 target, float distance)
 	return currDist <= distance;
 }
 
-void Ai::setFishCount(int fishCount)
+void Ai::getGoing()
 {
-	this->fishCount = fishCount;
-}
-
-int Ai::getFishCount()
-{
-	return this->fishCount;
-}
-
-void Ai::getGoing() 
-{
+	generateNextPoint();
 	float slope = (nextYPos - currentYPos) / (nextXPos - currentXPos), oldx = currentXPos, oldy = currentYPos;
 	if (currentXPos < nextXPos)
 	{
-		currentXPos += speed;
+		currentXPos += m_speed;
 	} 
 	else 
 	{
-		currentXPos -= speed;
+		currentXPos -= m_speed;
 	}
 	currentYPos = nextYPos - slope * (nextXPos - currentXPos);
-	//cout << currentXPos << ' ' << currentYPos << '\n';
-	fish->move(currentXPos - oldx, currentYPos - oldy, 0.0f);
+	move(currentXPos - oldx, currentYPos - oldy, 0.0f);
+	getRotations();
 }
+
+void Ai::getRotations()
+{
+	float currentRotation = (atan2(nextYPos - currentYPos, nextXPos - currentXPos) * 180.0f) / PI;
+	if (fabs(currentRotation) > 90)
+	{
+		ResetRotation();
+		rotate(180.0f, 0.0f, 1.0f, 0.0f);
+		if (currentRotation > 0)
+			rotate(180.0f - currentRotation, 0.0f, 0.0f, 1.0f);
+		else
+			rotate(fabs(currentRotation) - 180.0f, 0.0f, 0.0f, 1.0f);
+	}
+	if (fabs(currentRotation) < 90)
+	{
+		ResetRotation();
+		rotate(currentRotation, 0.0f, 0.0f, 1.0f);
+	}
+}
+
 
 Ai::~Ai()
 {
-	delete fish;
 }

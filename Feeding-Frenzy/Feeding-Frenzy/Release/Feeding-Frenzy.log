@@ -1,18 +1,11 @@
-﻿  Fish.cpp
-  Game.cpp
-  IndexBuffer.cpp
-  Level.cpp
-  main.cpp
-  Portal.cpp
-  Renderer.cpp
-  Shader.cpp
-  stb_image.cpp
-  Texture.cpp
-  VertexArray.cpp
-d:\git\feeding-frenzy\feeding-frenzy\feeding-frenzy\vertexarray.cpp(21): warning C4018: '<': signed/unsigned mismatch
-  VertexBuffer.cpp
-  VertexBufferLayout.cpp
+﻿  main.cpp
+d:\git\feeding-frenzy\feeding-frenzy\feeding-frenzy\feeding-frenzy\objloader.h(20): warning C4091: 'static ': ignored on left of 'OBJLoader' when no variable is declared
+d:\git\feeding-frenzy\feeding-frenzy\feeding-frenzy\feeding-frenzy\modelloader.h(28): warning C4091: 'static ': ignored on left of 'ModelLoader' when no variable is declared
+d:\git\feeding-frenzy\feeding-frenzy\feeding-frenzy\feeding-frenzy\main.cpp(12): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+d:\git\feeding-frenzy\feeding-frenzy\feeding-frenzy\feeding-frenzy\main.cpp(12): warning C4244: 'initializing': conversion from 'double' to 'const float', possible loss of data
   Generating code
-  All 906 functions were compiled because no usable IPDB/IOBJ from previous compilation was found.
+  3 of 1466 functions ( 0.2%) were compiled, the rest were copied from previous compilation.
+    1 functions were new in current compilation
+    0 functions had inline decision re-evaluated but remain unchanged
   Finished generating code
-  Feeding-Frenzy.vcxproj -> D:\Git\Feeding-Frenzy\Feeding-Frenzy\Release\Feeding-Frenzy.exe
+  Feeding-Frenzy.vcxproj -> D:\Git\Feeding-Frenzy\Feeding-Frenzy\Feeding-Frenzy\Release\Feeding-Frenzy.exe

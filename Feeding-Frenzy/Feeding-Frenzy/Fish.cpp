@@ -10,6 +10,7 @@ Fish::Fish(float xPos, float yPos, float zPos, float m_Xscale, float m_Yscale, f
 	this->m_speed = m_speed;
 	this->m_scale = m_Xscale * m_Yscale * m_Zscale;
 	model = ModelLoader::LoadModel(object);
+	GetCollisionPoints();
 	for (int i = 0; i < model.m_data.size(); i++)
 		index.push_back(i);
 	m_texture = new Texture(texture);
@@ -55,6 +56,51 @@ void Fish::scale(float valx, float valy, float valz)
 	m_scaleMatrix = glm::scale(m_scaleMatrix, glm::vec3(valx, valy, valz));
 }
 
+void Fish::ResetRotation()
+{
+	m_rotationMatrix = glm::mat4(1);
+}
+
+glm::vec2 Fish::GetPosition()
+{
+	glm::vec4 ret = glm::vec4(0.0f, 0.0f, 0.0f, 1.0f);
+	glm::mat4 modelMatrix = m_translationMatrix * m_rotationMatrix * m_scaleMatrix;
+	ret = modelMatrix * ret;
+	return glm::vec2(ret.x, ret.y);
+}
+
+glm::vec2 Fish::GetMouth()
+{
+	glm::vec4 ret = glm::vec4(1.0f, 0.0f, 0.0f, 1.0f);
+	glm::mat4 modelMatrix = m_translationMatrix * m_rotationMatrix * m_scaleMatrix;
+	ret = modelMatrix * ret;
+	return glm::vec2(ret.x, ret.y);
+}
+
+vector<glm::vec2> Fish::GetCollisionPolygon()
+{
+	glm::mat4 modelMatrix = m_translationMatrix * m_rotationMatrix * m_scaleMatrix;
+	vector<glm::vec2> ret;
+	for (glm::vec2 currentPoint : collisionPolygon) {
+		glm::vec4 temp = glm::vec4(currentPoint.x, currentPoint.y, 0.0f, 1.0f);
+		temp = modelMatrix * temp;
+		ret.push_back(glm::vec2(temp.x, temp.y));
+	}
+	return ret;
+}
+
+void Fish::GetCollisionPoints()
+{
+	float xMin = 1e18, xMax = -1e18, yMin = 1e18, yMax = -1e18;
+	for (int i = 0; i < model.m_data.size(); i += 5)
+	{
+		xMin = min(xMin, model.m_data[i]);
+		xMax = max(xMax, model.m_data[i]);
+		yMin = min(yMin, model.m_data[i + 1]);
+		yMax = max(yMax, model.m_data[i + 1]);
+	}
+	collisionPolygon = { glm::vec2(xMin, yMax), glm::vec2(xMax, yMax), glm::vec2(xMax, yMin), glm::vec2(xMin, yMin) };
+}
 
 Fish::~Fish()
 {
