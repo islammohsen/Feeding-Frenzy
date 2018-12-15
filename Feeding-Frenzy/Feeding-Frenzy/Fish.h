@@ -1,3 +1,5 @@
+#ifndef FISH_H
+#define FISH_H
 #include "Texture.h"	 
 #include "VertexArray.h"
 #include "VertexBuffer.h"
@@ -27,6 +29,7 @@ class Fish
 	glm::mat4 m_scaleMatrix;
 	glm::mat4 m_rotationMatrix;
 public:
+	Fish();
 	Fish(float xPos, float yPos, float zPos, float m_Xscale, float m_Yscale, float m_Zscale, float m_speed, string object, string texture);
 	void Draw(Renderer *renderer, Shader* m_shader, glm::mat4 view, glm::mat4 projection);
 	void move(float valx, float valy, float valz);
@@ -34,7 +37,7 @@ public:
 	void scale(float valx, float valy, float valz);
 	~Fish();
 };
-
+#endif
 
 
 

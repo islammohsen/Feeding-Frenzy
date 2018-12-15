@@ -20,6 +20,7 @@
 #include "Fish.h"
 #include "Level.h"
 #include "ModelLoader.h"
+#include "Ai.h"
 
 class Game
 {
@@ -29,10 +30,13 @@ class Game
 	Level *level;
 	Shader *basicShader, *textureShader;
 	Renderer *renderer;
+	Ai mainBot;
+	vector<Ai*> bots;
 public:
 	Game();
 	void Initialize();
 	void Draw();
+	bool Collision(vector<glm::vec2>, glm::vec2, vector<glm::vec2>);
 	~Game();
 	glm::mat4 view_matrix;
 };
