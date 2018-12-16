@@ -5,10 +5,10 @@ Fish::Fish()
 
 }
 
-Fish::Fish(float xPos, float yPos, float zPos, float m_Xscale, float m_Yscale, float m_Zscale, float m_speed, string object, string texture)
+Fish::Fish(float xPos, float yPos, float zPos, float m_Xscale, float m_Yscale, float m_Zscale, float m_speed, int type, string object, string texture)
 {
+	this->type = type;
 	this->m_speed = m_speed;
-	this->m_scale = m_Xscale * m_Yscale * m_Zscale;
 	model = ModelLoader::LoadModel(object);
 	GetCollisionPoints();
 	for (int i = 0; i < model.m_data.size(); i++)
@@ -59,6 +59,11 @@ void Fish::scale(float valx, float valy, float valz)
 void Fish::ResetRotation()
 {
 	m_rotationMatrix = glm::mat4(1);
+}
+
+int Fish::GetType()
+{
+	return type;
 }
 
 glm::vec2 Fish::GetPosition()

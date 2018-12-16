@@ -25,8 +25,8 @@ protected:
 	IndexBuffer *m_ibo;
 	VertexBuffer *m_vbo;
 	Texture *m_texture;
-	float m_scale;
 	float m_speed;
+	int type;
 	glm::mat4 m_translationMatrix;
 	glm::mat4 m_scaleMatrix;
 	glm::mat4 m_rotationMatrix;
@@ -34,12 +34,13 @@ private:
 	void GetCollisionPoints();
 public:
 	Fish();
-	Fish(float xPos, float yPos, float zPos, float m_Xscale, float m_Yscale, float m_Zscale, float m_speed, string object, string texture);
+	Fish(float xPos, float yPos, float zPos, float m_Xscale, float m_Yscale, float m_Zscale, float m_speed, int type, string object, string texture);
 	void Draw(Renderer *renderer, Shader* m_shader, glm::mat4 view, glm::mat4 projection);
 	void move(float valx, float valy, float valz);
 	void rotate(float angle, float x, float y, float z);
 	void scale(float valx, float valy, float valz);
 	void ResetRotation();
+	int GetType();
 	glm::vec2 GetPosition();
 	glm::vec2 GetMouth();
 	vector<glm::vec2> GetCollisionPolygon();

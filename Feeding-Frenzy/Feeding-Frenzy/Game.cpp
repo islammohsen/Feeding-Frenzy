@@ -3,43 +3,7 @@
 
 void Game::Attack()
 {
-	for (auto &currenBot1 : botsType3)
-	{
-		bool f = 1;
-		for (auto &currenBot2 : botsType2)
-		{
-			glm::vec2 points = currenBot2->GetPosition();
-			if (currenBot1->pointInRange(points, 400.0f))
-			{
-				currenBot1->specificAttack(points);
-				f = 1;
-				break;
-			}
-		}
-		if (f)
-			continue;
-		for (auto &currenBot2 : botsType1)
-		{
-			glm::vec2 points = currenBot2->GetPosition();
-			if (currenBot1->pointInRange(points, 400.0f))
-			{
-				currenBot1->specificAttack(points);
-				break;
-			}
-		}
-	}
-	for (auto &currenBot1 : botsType2)
-	{
-		for (auto &currenBot2 : botsType1)
-		{
-			glm::vec2 points = currenBot2->GetPosition();
-			if (currenBot1->pointInRange(points, 400.0f))
-			{
-				currenBot1->specificAttack(points);
-				break;
-			}
-		}
-	}
+	
 }
 
 Game::Game()
@@ -77,14 +41,13 @@ void Game::Initialize()
 		glm::vec3(0.0f, 0.0f, 0.0f),
 		glm::vec3(0.0f, 1.0f, 0.0f)
 	);
-	ourHero = new Hero(0.0f, 0.0f, 512.0f, 120.0f, 60.0f, 30.0f, 1.0f, "21856_Koi_v1", "Resources/Textures/Fish/TropicalFish06.jpg");
-	for (int i = 0; i < 5; i++)
-		botsType1.push_back(new Ai(60.0f, 30.0f, 15.0f, 1.0f, "21856_Koi_v1", "Resources/Textures/Fish/TropicalFish01.jpg"));
-	for (int i = 0; i < 5; i++)
-		botsType2.push_back(new Ai(120.0f, 60.0f, 30.0f, 1.0f, "21856_Koi_v1", "Resources/Textures/Fish/TropicalFish02.jpg"));
-	for (int i = 0; i < 5; i++)
-		botsType3.push_back(new Ai(180.0f, 90.0f, 45.0f, 1.0f, "21856_Koi_v1", "Resources/Textures/Fish/TropicalFish03.jpg"));
-
+	ourHero = new Hero(0.0f, 0.0f, 512.0f, 120.0f, 60.0f, 30.0f, 1.0f, 2, "21856_Koi_v1", "Resources/Textures/Fish/TropicalFish06.jpg");
+	for (int i = 0; i < level->getFishType1Counter(); i++)
+		bots.push_back(new Ai(60.0f, 30.0f, 15.0f, 1.0f, 1, "21856_Koi_v1", "Resources/Textures/Fish/TropicalFish01.jpg"));
+	for (int i = 0; i < level->getFishType2Counter(); i++)
+		bots.push_back(new Ai(120.0f, 60.0f, 30.0f, 1.0f, 2, "21856_Koi_v1", "Resources/Textures/Fish/TropicalFish02.jpg"));
+	for (int i = 0; i < level->getFishType3Counter(); i++)
+		bots.push_back(new Ai(180.0f, 90.0f, 45.0f, 1.0f, 3, "21856_Koi_v1", "Resources/Textures/Fish/TropicalFish03.jpg"));
 }
 
 void Game::Draw()
@@ -96,18 +59,8 @@ void Game::Draw()
 
 	level->DrawBackground(renderer, textureShader, view, proj);
 	ourHero->Draw(renderer, textureShader, view, proj);
-	for (auto &currentBot : botsType1)
-	{
+	for (auto &currentBot : bots)
 		currentBot->Draw(renderer, textureShader, view, proj);
-	}
-	for (auto &currentBot : botsType2)
-	{
-		currentBot->Draw(renderer, textureShader, view, proj);
-	}
-	for (auto &currentBot : botsType3)
-	{
-		currentBot->Draw(renderer, textureShader, view, proj);
-	}
 }
 
 void Game::Update()
@@ -120,62 +73,57 @@ void Game::Update()
 		time = newTime;
 	}
 	ourHero->getGoing();
-	for (auto &currentBot : botsType1)
-	{
+	for (auto &currentBot : bots)
 		currentBot->getGoing();
-	}
-	for (auto &currentBot : botsType2)
-	{
-		currentBot->getGoing();
-	}
-	for (auto &currentBot : botsType3)
-	{
-		currentBot->getGoing();
-	}
 }
 
 void Game::CheckCollision()
 {
-	for (int i = 0; i < botsType3.size(); i++)
+	set<int> Remove;
+	for (int i = 0; i < bots.size(); i++)
 	{
-		for (int j = 0; j < botsType2.size(); j++)
-		{
-			if (Collision(botsType3[i]->GetMouth(), botsType2[j]->GetCollisionPolygon()))
-			{
-				delete botsType2[j];
-				botsType2.erase(botsType2.begin() + j);
-				j--;
-			}
-		}
-		for (int j = 0; j < botsType1.size(); j++)
-		{
-			if (Collision(botsType3[i]->GetMouth(), botsType1[j]->GetCollisionPolygon()))
-			{
-				delete botsType1[j];
-				botsType1.erase(botsType1.begin() + j);
-				j--;
-			}
+		if (bots[i]->GetType() >= ourHero->GetType())
+			continue;
+		if (Collision(ourHero->GetMouth(), bots[i]->GetCollisionPolygon())) {
+			Remove.insert(i);
+			ourHero->Eat();
 		}
 	}
-	for (int i = 0; i < botsType2.size(); i++)
+	for (int i = 0; i < bots.size(); i++)
 	{
-		for (int j = 0; j < botsType1.size(); j++)
+		glm::vec2 mouth = bots[i]->GetMouth();
+		for (int j = 0; j < bots.size(); j++)
 		{
-			if (Collision(botsType2[i]->GetMouth(), botsType1[j]->GetCollisionPolygon()))
-			{
-				delete botsType1[j];
-				botsType1.erase(botsType1.begin() + j);
-				j--;
-			}
+			if (i == j || bots[j]->GetType() >= bots[i]->GetType())
+				continue;
+			if (Collision(mouth, bots[j]->GetCollisionPolygon()))
+				Remove.insert(j);
 		}
 	}
-	while (botsType1.size() < 5)
+	vector<Ai*> copy = bots;
+	bots.clear();
+	int t[4] = {};
+	for (int i = 0; i < copy.size(); i++)
 	{
-		botsType1.push_back(new Ai(60.0f, 30.0f, 15.0f, 1.0f, "21856_Koi_v1", "Resources/Textures/Fish/TropicalFish01.jpg"));
+		if (Remove.find(i) != Remove.end())
+		{
+			t[copy[i]->GetType()]++;
+			delete copy[i];
+		}
+		else
+			bots.push_back(copy[i]);
 	}
-	while (botsType2.size() < 5)
+	for (int i = 1; i < 4; i++)
 	{
-		botsType2.push_back(new Ai(120.0f, 60.0f, 30.0f, 1.0f, "21856_Koi_v1", "Resources/Textures/Fish/TropicalFish02.jpg"));
+		while (t[i]--)
+		{
+			if(i == 1)
+				bots.push_back(new Ai(60.0f, 30.0f, 15.0f, 1.0f, 1, "21856_Koi_v1", "Resources/Textures/Fish/TropicalFish01.jpg"));
+			else if(i == 2)
+				bots.push_back(new Ai(120.0f, 60.0f, 30.0f, 1.0f, 2, "21856_Koi_v1", "Resources/Textures/Fish/TropicalFish02.jpg"));
+			else
+				bots.push_back(new Ai(180.0f, 90.0f, 45.0f, 1.0f, 3, "21856_Koi_v1", "Resources/Textures/Fish/TropicalFish03.jpg"));
+		}
 	}
 }
 

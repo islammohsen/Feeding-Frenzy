@@ -6,6 +6,7 @@ Level::Level(int levelNumber)
 	for(int i = 0; i < 5; i++)
 		texture.push_back("Resources/Textures/Background/background2.png");
 	background = new Background(0.0f, 0.0f, -1.0f, 1024.0f, 720.0f, 3.0f, texture);
+	fishType1Counter = fishType2Counter = fishType3Counter = 3;
 }
 
 Level::~Level()
@@ -15,6 +16,21 @@ Level::~Level()
 void Level::DrawBackground(Renderer * renderer, Shader * m_shader, glm::mat4 view, glm::mat4 projection)
 {
 	background->Draw(renderer, m_shader, view, projection);
+}
+
+int Level::getFishType1Counter()
+{
+	return fishType1Counter;
+}
+
+int Level::getFishType2Counter()
+{
+	return fishType2Counter;
+}
+
+int Level::getFishType3Counter()
+{
+	return fishType3Counter;
 }
 
 Background::Background(float x,float y,float z,float x_scale, float y_scale, float z_scale, vector<string> texture)

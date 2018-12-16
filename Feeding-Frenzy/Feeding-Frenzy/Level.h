@@ -38,11 +38,13 @@ public:
 class Level
 {
 	Background *background;
-	
+	int fishType1Counter, fishType2Counter, fishType3Counter;
 public:
 	Level(int levelNumber);
 	~Level();
 	void DrawBackground(Renderer * renderer, Shader * m_shader, glm::mat4 view, glm::mat4 projection);
-	
+	int getFishType1Counter();
+	int getFishType2Counter();
+	int getFishType3Counter();
 };
 

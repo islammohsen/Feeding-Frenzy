@@ -5,8 +5,8 @@ const float PI = acos(-1);
 auto seed = chrono::high_resolution_clock::now().time_since_epoch().count();
 mt19937 mt_rand(seed);
 
-Ai::Ai(float m_Xscale, float m_Yscale, float m_Zscale, float m_speed, string object, string texture):
-	Fish(0.0f, 0.0f, 0.0f, m_Xscale, m_Yscale, m_Zscale, m_speed, object, texture)
+Ai::Ai(float m_Xscale, float m_Yscale, float m_Zscale, float m_speed, int type, string object, string texture):
+	Fish(0.0f, 0.0f, 0.0f, m_Xscale, m_Yscale, m_Zscale, m_speed, type, object, texture)
 {
 	float xPos = (mt_rand() % 2048) - 1024.0f, yPos = (mt_rand() % 1440) - 720.0f, zPos = 512.0f;
 	move(xPos, yPos, zPos);

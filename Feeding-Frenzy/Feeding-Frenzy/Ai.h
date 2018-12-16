@@ -19,7 +19,7 @@ private:
 	void setNextRandomPosition();
 	void generateNextPoint();
 public:
-	Ai(float m_Xscale, float m_Yscale, float m_Zscale, float m_speed, string object, string texture);
+	Ai(float m_Xscale, float m_Yscale, float m_Zscale, float m_speed, int type, string object, string texture);
 	void getGoing();
 	void specificAttack(glm::vec2);
 	bool pointInRange(glm::vec2, float);

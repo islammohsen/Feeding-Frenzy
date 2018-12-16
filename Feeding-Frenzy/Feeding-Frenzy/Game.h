@@ -22,6 +22,7 @@
 #include "ModelLoader.h"
 #include "Ai.h"
 #include "Hero.h"
+#include <set>
 
 class Game
 {
@@ -30,7 +31,7 @@ class Game
 	Level *level;
 	Shader *basicShader, *textureShader;
 	Renderer *renderer;
-	vector<Ai*> botsType1, botsType2, botsType3;
+	vector<Ai*> bots;
 	void Attack();
 	float time;
 public:
