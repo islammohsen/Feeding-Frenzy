@@ -24,7 +24,7 @@ void SpecialKeyPressed(GLFWwindow* window, int key, int scancode, int action, in
 	if (action == GLFW_PRESS || GLFW_REPEAT)
 		keyPressed = key;
 	if (keyPressed == GLFW_KEY_Q)
-		game->view_matrix *= glm::rotate(10.0f, glm::vec3(0.0f, 1.0f, 0.0f));
+		game->ourHero->playerCamera.Yaw(10.0f);
 	if (keyPressed == GLFW_KEY_E)
 		game->view_matrix *= glm::rotate(-10.0f, glm::vec3(0.0f, 1.0f, 0.0f));
 	if (keyPressed == GLFW_KEY_W)

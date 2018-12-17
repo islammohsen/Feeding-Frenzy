@@ -5,7 +5,7 @@ vector<string> ModelLoader::modelNames;
 
 void ModelLoader::ImportModels()
 {
-	modelNames = { "21856_Koi_v1" };
+	modelNames = { "21856_Koi_v1", "3d-model", "TropicalFish01"};
 	for (string modelName : modelNames)
 	{
 		Models[modelName].m_data = OBJLoader::LoadObjModel(modelName);

@@ -41,13 +41,13 @@ void Game::Initialize()
 		glm::vec3(0.0f, 0.0f, 0.0f),
 		glm::vec3(0.0f, 1.0f, 0.0f)
 	);
-	ourHero = new Hero(0.0f, 0.0f, 512.0f, 120.0f, 60.0f, 30.0f, 1.0f, 2, "21856_Koi_v1", "Resources/Textures/Fish/TropicalFish06.jpg");
+	ourHero = new Hero(0.0f, 200.0f, 512.0f, 120.0f, 40.0f, 30.0f, 3.0f, 2, "3d-model", "Resources/Textures/Fish/TropicalFish10.jpg");
 	for (int i = 0; i < level->getFishType1Counter(); i++)
-		bots.push_back(new Ai(60.0f, 30.0f, 15.0f, 1.0f, 1, "21856_Koi_v1", "Resources/Textures/Fish/TropicalFish01.jpg"));
+		bots.push_back(new Ai(60.0f, 20.0f, 15.0f, 1.0f, 1, "21856_Koi_v1", "Resources/Textures/Fish/TropicalFish01.jpg"));
 	for (int i = 0; i < level->getFishType2Counter(); i++)
-		bots.push_back(new Ai(120.0f, 60.0f, 30.0f, 1.0f, 2, "21856_Koi_v1", "Resources/Textures/Fish/TropicalFish02.jpg"));
+		bots.push_back(new Ai(120.0f, 40.0f, 30.0f, 1.0f, 2, "21856_Koi_v1", "Resources/Textures/Fish/TropicalFish02.jpg"));
 	for (int i = 0; i < level->getFishType3Counter(); i++)
-		bots.push_back(new Ai(180.0f, 90.0f, 45.0f, 1.0f, 3, "21856_Koi_v1", "Resources/Textures/Fish/TropicalFish03.jpg"));
+		bots.push_back(new Ai(180.0f, 80.0f, 45.0f, 1.0f, 3, "21856_Koi_v1", "Resources/Textures/Fish/TropicalFish03.jpg"));
 }
 
 void Game::Draw()
@@ -89,6 +89,7 @@ void Game::CheckCollision()
 			ourHero->Eat();
 		}
 	}
+	bool heroDead = false;
 	for (int i = 0; i < bots.size(); i++)
 	{
 		glm::vec2 mouth = bots[i]->GetMouth();
@@ -99,6 +100,13 @@ void Game::CheckCollision()
 			if (Collision(mouth, bots[j]->GetCollisionPolygon()))
 				Remove.insert(j);
 		}
+		if (bots[i]->GetType() > ourHero->GetType() && Collision(mouth, ourHero->GetCollisionPolygon()))
+			heroDead = true;
+	}
+	if (heroDead)
+	{
+		delete ourHero;
+		ourHero = new Hero(0.0f, 200.0f, 512.0f, 120.0f, 40.0f, 30.0f, 3.0f, 2, "3d-model", "Resources/Textures/Fish/TropicalFish10.jpg");
 	}
 	vector<Ai*> copy = bots;
 	bots.clear();

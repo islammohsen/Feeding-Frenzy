@@ -31,7 +31,7 @@ Fish::Fish(float xPos, float yPos, float zPos, float m_Xscale, float m_Yscale, f
 void Fish::Draw(Renderer *renderer, Shader* m_shader, glm::mat4 view, glm::mat4 projection)
 {
 	m_shader->Bind();
-	glm::mat4 modelMatrix = m_translationMatrix * m_rotationMatrix * model.m_rotation * m_scaleMatrix;
+	glm::mat4 modelMatrix = m_translationMatrix * m_rotationMatrix * m_scaleMatrix * model.m_rotation;
 	m_shader->SetUniformMat4f("u_MVP", projection * view * modelMatrix);
 	m_shader->setUniform1i("myTextureSampler", 0);
 	m_texture->Bind(0);

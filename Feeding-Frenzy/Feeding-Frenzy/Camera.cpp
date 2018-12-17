@@ -74,8 +74,9 @@ void Camera::Yaw(float angleDegrees)
 {
 	// 2ldirection 2lle howa 2l z byt7rk m3a 2l 2tgah.
 
-	mDirection = glm::rotate(mDirection, angleDegrees, mUp);
+	//mDirection = glm::rotate(mDirection, angleDegrees, mUp);
 	mRight = glm::rotate(mRight, angleDegrees, mUp);
+	UpdateViewMatrix();
 }
 
 void Camera::Pitch(float angleDegrees)
