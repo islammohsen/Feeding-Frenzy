@@ -66,45 +66,50 @@ int Fish::GetType()
 	return type;
 }
 
-glm::vec2 Fish::GetPosition()
+glm::vec3 Fish::GetPosition()
 {
 	glm::vec4 ret = glm::vec4(0.0f, 0.0f, 0.0f, 1.0f);
 	glm::mat4 modelMatrix = m_translationMatrix * m_rotationMatrix * m_scaleMatrix;
 	ret = modelMatrix * ret;
-	return glm::vec2(ret.x, ret.y);
+	return glm::vec3(ret.x, ret.y, ret.z);
 }
 
-glm::vec2 Fish::GetMouth()
+glm::vec3 Fish::GetMouth()
 {
 	glm::vec4 ret = glm::vec4(1.0f, 0.0f, 0.0f, 1.0f);
 	glm::mat4 modelMatrix = m_translationMatrix * m_rotationMatrix * m_scaleMatrix;
 	ret = modelMatrix * ret;
-	return glm::vec2(ret.x, ret.y);
+	return glm::vec3(ret.x, ret.y, ret.z);
 }
 
-vector<glm::vec2> Fish::GetCollisionPolygon()
+vector<glm::vec3> Fish::GetCollisionPolygon()
 {
 	glm::mat4 modelMatrix = m_translationMatrix * m_rotationMatrix * m_scaleMatrix;
-	vector<glm::vec2> ret;
-	for (glm::vec2 currentPoint : collisionPolygon) {
+	vector<glm::vec3> ret;
+	for (glm::vec3 currentPoint : collisionPolygon) {
 		glm::vec4 temp = glm::vec4(currentPoint.x, currentPoint.y, 0.0f, 1.0f);
 		temp = modelMatrix * temp;
-		ret.push_back(glm::vec2(temp.x, temp.y));
+		ret.push_back(glm::vec3(temp.x, temp.y, temp.z));
 	}
 	return ret;
 }
 
 void Fish::GetCollisionPoints()
 {
-	float xMin = 1e18, xMax = -1e18, yMin = 1e18, yMax = -1e18;
+	float xMin = 1e18, xMax = -1e18, yMin = 1e18, yMax = -1e18, zMin = 1e18, zMax = -1e18;
 	for (int i = 0; i < model.m_data.size(); i += 5)
 	{
 		xMin = min(xMin, model.m_data[i]);
 		xMax = max(xMax, model.m_data[i]);
 		yMin = min(yMin, model.m_data[i + 1]);
 		yMax = max(yMax, model.m_data[i + 1]);
+		zMin = min(zMin, model.m_data[i + 2]);
+		zMax = min(zMax, model.m_data[i + 2]);
 	}
-	collisionPolygon = { glm::vec2(xMin, yMax), glm::vec2(xMax, yMax), glm::vec2(xMax, yMin), glm::vec2(xMin, yMin) };
+	collisionPolygon = { glm::vec3(xMin, yMin, zMin), glm::vec3(xMin, yMin, zMax), 
+						 glm::vec3(xMin, yMax, zMin), glm::vec3(xMin, yMax, zMax),
+						 glm::vec3(xMax, yMin, zMin), glm::vec3(xMax, yMin, zMax),
+						 glm::vec3(xMax, yMax, zMin), glm::vec3(xMax, yMax, zMax) };
 }
 
 Fish::~Fish()

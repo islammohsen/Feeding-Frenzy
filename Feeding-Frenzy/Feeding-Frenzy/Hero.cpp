@@ -1,5 +1,8 @@
 #include "Hero.h"
-
+/*
+auto seed = chrono::high_resolution_clock::now().time_since_epoch().count();
+mt19937 mt_rand(seed);
+*/
 const float PI = acos(-1);
 
 Hero::Hero(float xPos, float yPos, float zPos, float m_Xscale, float m_Yscale, float m_Zscale, float m_speed, int type, string object, string texture) :Fish(xPos, yPos, zPos, m_Xscale, m_Yscale, m_Zscale, m_speed, type, object, texture)
@@ -11,6 +14,7 @@ Hero::Hero(float xPos, float yPos, float zPos, float m_Xscale, float m_Yscale, f
 	playerCamera.Walk(-2000.0f);
 	currentXPos = nextXPos = xPos;
 	currentYPos = nextYPos = yPos;
+	currentZPos = nextZPos = zPos;
 }
 
 void Hero::Eat()
@@ -29,18 +33,20 @@ void Hero::move(float valx, float valy, float valz)
 	m_translationMatrix = glm::translate(m_translationMatrix, glm::vec3(valx, valy, valz));
 }
 
-void Hero::GoTo(float newNextXPos, float newNextYPos)
+void Hero::GoTo(float newNextXPos, float newNextYPos, float newNextZPos)
 {
 	nextXPos = newNextXPos;
 	nextYPos = newNextYPos;
+	nextZPos = newNextZPos;
 }
 
 void Hero::getGoing()
 {
 	if (fabs(nextXPos - currentXPos) < 10.0f)
 		return;
-	glm::vec2 mouth = GetMouth();
-	float slope = (nextYPos - currentYPos) / (nextXPos - currentXPos), oldx = currentXPos, oldy = currentYPos;
+	glm::vec3 mouth = GetMouth();
+	float slope = (nextYPos - currentYPos) / (nextXPos - currentXPos), oldx = currentXPos, oldy = currentYPos, oldz = currentZPos;
+	float mouthBodyDiff = mouth.z - currentZPos;
 	if (currentXPos < nextXPos)
 	{
 		currentXPos += m_speed;
@@ -51,15 +57,31 @@ void Hero::getGoing()
 		currentXPos -= m_speed;
 		mouth.x -= m_speed;
 	}
+	if (currentZPos < nextZPos)
+	{
+		currentZPos += m_speed;
+		mouth.z += m_speed;
+	}
+	else
+	{
+		currentZPos -= m_speed;
+		mouth.z -= m_speed;
+	}
+	if (currentZPos < 0.0f)
+	{
+		currentZPos = rand() % 1024; //
+		mouth.z = mouthBodyDiff + currentZPos;
+	}
 	currentYPos = nextYPos - slope * (nextXPos - currentXPos);
 	mouth.y = nextYPos - slope * (nextXPos - mouth.x);
-	if (mouth.x >= 1024.0f || mouth.x <= -1024.0f || mouth.y >= 720.0f || mouth.y <= -720.0f)
+	if (mouth.x >= 1024.0f || mouth.x <= -1024.0f || mouth.y >= 720.0f || mouth.y <= -720.0f || mouth.z >= 1024.0f || mouth.z <= 0.0f)
 	{
 		currentXPos = oldx;
 		currentYPos = oldy;
+		currentZPos = oldz;
 		return;
 	}
-	move(currentXPos - oldx, currentYPos - oldy, 0.0f);
+	move(currentXPos - oldx, currentYPos - oldy, currentZPos - oldz);
 	getRotations();
 }
 

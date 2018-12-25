@@ -15,12 +15,16 @@
 #include <glm/gtx/transform.hpp>
 #include "ModelLoader.h"
 
+#include <chrono>
+#include <random>
+#include <time.h>
+
 class Fish
 {
 protected:
 	Model model;
 	vector<unsigned int> index;
-	vector<glm::vec2> collisionPolygon;
+	vector<glm::vec3> collisionPolygon;
 	VertexArray *m_vao;
 	IndexBuffer *m_ibo;
 	VertexBuffer *m_vbo;
@@ -41,9 +45,9 @@ public:
 	void scale(float valx, float valy, float valz);
 	void ResetRotation();
 	int GetType();
-	glm::vec2 GetPosition();
-	glm::vec2 GetMouth();
-	vector<glm::vec2> GetCollisionPolygon();
+	glm::vec3 GetPosition();
+	glm::vec3 GetMouth();
+	vector<glm::vec3> GetCollisionPolygon();
 	~Fish();
 };
 #endif

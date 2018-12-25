@@ -10,7 +10,45 @@ Game::Game()
 {
 }
 
-bool PointInPolygon(const vector<glm::vec2> &p, glm::vec2 q) {
+
+typedef struct {
+	double x, y, z;
+} XYZ;
+#define EPSILON  0.0000001
+#define MODULUS(p) (sqrt(p.x*p.x + p.y*p.y + p.z*p.z))
+#define TWOPI 6.283185307179586476925287
+#define RTOD 57.2957795
+
+//double CalcAngleSum(XYZ q, XYZ *p, int n)
+bool PointInPolygon(const vector<glm::vec3> &p, glm::vec3 q)
+{
+	int i, n = p.size();
+	double m1, m2;
+	double anglesum = 0, costheta;
+	XYZ p1, p2;
+
+	for (i = 0; i < n; i++) {
+
+		p1.x = p[i].x - q.x;
+		p1.y = p[i].y - q.y;
+		p1.z = p[i].z - q.z;
+		p2.x = p[(i + 1) % n].x - q.x;
+		p2.y = p[(i + 1) % n].y - q.y;
+		p2.z = p[(i + 1) % n].z - q.z;
+
+		m1 = MODULUS(p1);
+		m2 = MODULUS(p2);
+		if (m1*m2 <= EPSILON)
+			return(TWOPI); /* We are on a node, consider this inside */
+		else
+			costheta = (p1.x*p2.x + p1.y*p2.y + p1.z*p2.z) / (m1*m2);
+
+		anglesum += acos(costheta);
+	}
+	return fabs(anglesum - 1e-9) <= 360.0f;
+}
+
+/*bool PointInPolygon(const vector<glm::vec3> &p, glm::vec3 q) {
 	bool c = 0;
 	for (int i = 0; i < p.size(); i++) {
 		int j = (i + 1) % p.size();
@@ -20,10 +58,10 @@ bool PointInPolygon(const vector<glm::vec2> &p, glm::vec2 q) {
 			c = !c;
 	}
 	return c;
-}
+}*/
 
 
-bool Game::Collision(glm::vec2 mouth, vector<glm::vec2> target)
+bool Game::Collision(glm::vec3 mouth, vector<glm::vec3> target)
 {
 	return PointInPolygon(target, mouth);
 }
@@ -92,7 +130,7 @@ void Game::CheckCollision()
 	bool heroDead = false;
 	for (int i = 0; i < bots.size(); i++)
 	{
-		glm::vec2 mouth = bots[i]->GetMouth();
+		glm::vec3 mouth = bots[i]->GetMouth();
 		for (int j = 0; j < bots.size(); j++)
 		{
 			if (i == j || bots[j]->GetType() >= bots[i]->GetType())

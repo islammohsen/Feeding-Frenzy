@@ -57,7 +57,7 @@ void MouseMoved(GLFWwindow* window, double MouseXPos, double MouseYPos) {
 	v.x *= 1024;
 	v.y *= 720.0f;
 	v.y *= -1;
-	game->ourHero->GoTo(game->ourHero->currentXPos + v.x, game->ourHero->currentYPos + v.y);
+	game->ourHero->GoTo(game->ourHero->currentXPos + v.x, game->ourHero->currentYPos + v.y, game->ourHero->currentZPos);
 }
 
 
