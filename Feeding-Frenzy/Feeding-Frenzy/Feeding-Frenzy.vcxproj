@@ -158,6 +158,7 @@
   <ItemGroup>
     <None Include="Resources\shaders\Basic.shader" />
     <None Include="Resources\shaders\TextureShader.shader" />
+    <None Include="Resources\shaders\Texture_Light.shader" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="Resources\Textures\Background\BackGround-2.png" />

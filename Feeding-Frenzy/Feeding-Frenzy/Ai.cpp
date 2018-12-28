@@ -51,7 +51,6 @@ bool Ai::pointInRange(glm::vec3 target, float distance)
 
 void Ai::getGoing()
 {
-	cout << "-----> " << currentXPos << " " << currentYPos << " " << currentZPos << endl;
 	generateNextPoint();
 	if (nextXPos == currentXPos)
 		nextXPos++;

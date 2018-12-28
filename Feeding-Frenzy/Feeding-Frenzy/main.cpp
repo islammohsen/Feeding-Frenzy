@@ -23,15 +23,35 @@ int keyPressed = -1;
 void SpecialKeyPressed(GLFWwindow* window, int key, int scancode, int action, int mods) {
 	if (action == GLFW_PRESS || GLFW_REPEAT)
 		keyPressed = key;
-	if (keyPressed == GLFW_KEY_Q)
-		game->ourHero->playerCamera.Yaw(10.0f);
-	if (keyPressed == GLFW_KEY_E)
-		game->view_matrix *= glm::rotate(-10.0f, glm::vec3(0.0f, 1.0f, 0.0f));
-	if (keyPressed == GLFW_KEY_W)
-		game->ourHero->playerCamera.Walk(20.0f);
-	if (keyPressed == GLFW_KEY_S)
-		game->ourHero->playerCamera.Walk(-20.0f);
-
+	if (keyPressed == GLFW_KEY_T)
+		game->mode = ThirdPerson;
+	if (keyPressed == GLFW_KEY_F)
+		game->mode = FirstPerson;
+	if(game->mode == ThirdPerson)
+	{
+		if (keyPressed == GLFW_KEY_W)
+			game->ourHero->thirdPersonCamera.Walk(20.0f);
+		if (keyPressed == GLFW_KEY_S)
+			game->ourHero->thirdPersonCamera.Walk(-20.0f);
+		if (keyPressed == GLFW_KEY_A)
+			game->ourHero->rotateTo(game->ourHero->rotationAngle + 5.0f);
+		if (keyPressed == GLFW_KEY_D)
+			game->ourHero->rotateTo(game->ourHero->rotationAngle - 5.0f);
+		if (keyPressed == GLFW_KEY_Z)
+			game->ourHero->GoTo(game->ourHero->currentXPos, game->ourHero->currentYPos, game->ourHero->currentZPos - 20.0f);
+		if (keyPressed == GLFW_KEY_X)
+			game->ourHero->GoTo(game->ourHero->currentXPos, game->ourHero->currentYPos, game->ourHero->currentZPos + 20.0f);
+		
+	}
+	if(game->mode == FirstPerson)
+	{
+		if (keyPressed == GLFW_KEY_W)
+			game->ourHero->MoveForward();
+		if (keyPressed == GLFW_KEY_A)
+			game->ourHero->rotateTo(game->ourHero->rotationAngle + 5.0f);
+		if(keyPressed == GLFW_KEY_D)
+			game->ourHero->rotateTo(game->ourHero->rotationAngle - 5.0f);
+	}
 }
 
 glm::vec2 normalize(glm::vec2 v)
@@ -53,11 +73,14 @@ glm::vec2 normalize(glm::vec2 v)
 }
 
 void MouseMoved(GLFWwindow* window, double MouseXPos, double MouseYPos) {
-	glm::vec2 v = normalize(glm::vec2(MouseXPos, MouseYPos));
-	v.x *= 1024;
-	v.y *= 720.0f;
-	v.y *= -1;
-	game->ourHero->GoTo(game->ourHero->currentXPos + v.x, game->ourHero->currentYPos + v.y, game->ourHero->currentZPos);
+	if (game->mode == ThirdPerson)
+	{
+		glm::vec2 v = normalize(glm::vec2(MouseXPos, MouseYPos));
+		v.x *= 1024;
+		v.y *= 720.0f;
+		v.y *= -1;
+		game->ourHero->GoTo(game->ourHero->currentXPos + v.x, game->ourHero->currentYPos + v.y, game->ourHero->currentZPos);
+	}
 }
 
 
@@ -114,7 +137,7 @@ int main()
 		/* Render here */
 
 		game->Update();
-		game->CheckCollision();
+		//game->CheckCollision();
 		game->Draw();
 
 		/* Swap front and back buffers */

@@ -73,13 +73,14 @@ void Game::Initialize()
 	renderer = new Renderer();
 	textureShader = new Shader(textureShaderFileName);
 	basicShader = new Shader(basicShaderFileName);
+	mode = ThirdPerson;
 	level = new Level(0);
 	view_matrix = glm::lookAt(
 		glm::vec3(0.0f, 0.0f, 720.0f),
 		glm::vec3(0.0f, 0.0f, 0.0f),
 		glm::vec3(0.0f, 1.0f, 0.0f)
 	);
-	ourHero = new Hero(0.0f, 200.0f, 512.0f, 120.0f, 40.0f, 30.0f, 3.0f, 2, "3d-model", "Resources/Textures/Fish/TropicalFish10.jpg");
+	ourHero = new Hero(0.0f, 0.0f, 512.0f, 120.0f, 40.0f, 30.0f, 3.0f, 2, "3d-model", "Resources/Textures/Fish/TropicalFish10.jpg");
 	for (int i = 0; i < level->getFishType1Counter(); i++)
 		bots.push_back(new Ai(60.0f, 20.0f, 15.0f, 1.0f, 1, "21856_Koi_v1", "Resources/Textures/Fish/TropicalFish01.jpg"));
 	for (int i = 0; i < level->getFishType2Counter(); i++)
@@ -92,9 +93,18 @@ void Game::Draw()
 {
 	renderer->Clear();
 
-	glm::mat4 proj = ourHero->playerCamera.GetProjectionMatrix();
-	glm::mat4 view = ourHero->playerCamera.GetViewMatrix();
+	glm::mat4 proj;
+	glm::mat4 view;
 
+	if (mode == ThirdPerson)
+	{
+		proj = ourHero->thirdPersonCamera.GetProjectionMatrix();
+		view = ourHero->thirdPersonCamera.GetViewMatrix();
+	}
+	if (mode == FirstPerson) {
+		proj = ourHero->firstPersonCamera.GetProjectionMatrix();
+		view = ourHero->firstPersonCamera.GetViewMatrix();
+	}
 	level->DrawBackground(renderer, textureShader, view, proj);
 	ourHero->Draw(renderer, textureShader, view, proj);
 	for (auto &currentBot : bots)
@@ -106,7 +116,7 @@ void Game::Update()
 	float newTime = glfwGetTime();
 
 	if (newTime - time >= 2) {
-		cout << "attack triggered\n";
+		//cout << "attack triggered\n";
 		//Attack();
 		time = newTime;
 	}

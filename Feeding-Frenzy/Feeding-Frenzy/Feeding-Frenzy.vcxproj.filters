@@ -142,6 +142,9 @@
     <None Include="Resources\shaders\TextureShader.shader">
       <Filter>Resource Files\shaders</Filter>
     </None>
+    <None Include="Resources\shaders\Texture_Light.shader">
+      <Filter>Resource Files\shaders</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Image Include="Resources\Textures\Background\background2.png">

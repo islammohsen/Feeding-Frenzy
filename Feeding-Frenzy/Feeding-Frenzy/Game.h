@@ -24,6 +24,11 @@
 #include "Hero.h"
 #include <set>
 
+enum GameMode
+{
+	FirstPerson, ThirdPerson
+};
+
 class Game
 {
 	string textureShaderFileName = "Resources/shaders/TextureShader.shader";
@@ -35,6 +40,7 @@ class Game
 	void Attack();
 	float time;
 public:
+	GameMode mode;
 	Hero *ourHero;
 	Game();
 	void Initialize();

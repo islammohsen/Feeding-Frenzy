@@ -20,6 +20,7 @@ Fish::Fish(float xPos, float yPos, float zPos, float m_Xscale, float m_Yscale, f
 	VertexBufferLayout layout;
 	layout.push<float>(3);
 	layout.push<float>(2);
+	layout.push<float>(3);
 	m_vao->AddBuffer(*m_vbo, layout);
 	this->move(xPos, yPos, zPos);
 	this->scale(m_Xscale, m_Yscale, m_Zscale);

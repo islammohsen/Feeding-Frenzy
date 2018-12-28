@@ -131,11 +131,12 @@ void OBJLoader::addVertex(vector<float> &Points, string s, vector<float> vertex,
 	vertexIndex--;
 	textureIndex--;
 	normalIndex--;
-	Points.push_back(vertex[vertexIndex * 3]);
-	Points.push_back(vertex[vertexIndex * 3 + 1]);
-	Points.push_back(vertex[vertexIndex * 3 + 2]);
-	Points.push_back(texture[textureIndex * 2]);
-	Points.push_back(1 - texture[textureIndex * 2 + 1]);
+	for(int i = 0; i < 3; i++)
+		Points.push_back(vertex[vertexIndex * 3 + i]);
+	for(int i = 0; i < 2; i++)
+		Points.push_back(texture[textureIndex * 2 + i]);
+	for (int i = 0; i < 3; i++)
+		Points.push_back(normal[normalIndex * 3 + i]);
 }
 
 void OBJLoader::normalize(vector<float>& points)

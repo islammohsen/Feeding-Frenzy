@@ -4,17 +4,21 @@ auto seed = chrono::high_resolution_clock::now().time_since_epoch().count();
 mt19937 mt_rand(seed);
 */
 const float PI = acos(-1);
+#define EPS 10
 
 Hero::Hero(float xPos, float yPos, float zPos, float m_Xscale, float m_Yscale, float m_Zscale, float m_speed, int type, string object, string texture) :Fish(xPos, yPos, zPos, m_Xscale, m_Yscale, m_Zscale, m_speed, type, object, texture)
 {
 	score = 0;
-	playerCamera.SetPerspectiveProjection(45.0f, 1024.0f / 720.0f, 0.1f, 10000.0f);
-	playerCamera.Strafe(xPos);
-	playerCamera.Fly(yPos);
-	playerCamera.Walk(-2000.0f);
+	thirdPersonCamera.SetPerspectiveProjection(45.0f, 1024.0f / 720.0f, 0.1f, 10000.0f);
 	currentXPos = nextXPos = xPos;
 	currentYPos = nextYPos = yPos;
 	currentZPos = nextZPos = zPos;
+	thirdPersonCamera.Strafe(xPos);
+	thirdPersonCamera.Fly(yPos);
+	thirdPersonCamera.Walk(-2000.0f);
+	firstPersonCamera.SetPerspectiveProjection(45.0f, 1024.0f / 720.0f, 0.1f, 10000.0f);
+	updateFirstPersonCamera();
+	direction = PostiveDirection;
 }
 
 void Hero::Eat()
@@ -28,9 +32,77 @@ void Hero::Eat()
 
 void Hero::move(float valx, float valy, float valz)
 {
-	playerCamera.Strafe(valx);
-	playerCamera.Fly(valy);
+	thirdPersonCamera.Strafe(valx);
+	thirdPersonCamera.Fly(valy);
 	m_translationMatrix = glm::translate(m_translationMatrix, glm::vec3(valx, valy, valz));
+	updateFirstPersonCamera();
+}
+
+void Hero::rotateTo(float angle)
+{
+	rotationAngle = angle;
+	cout << rotationAngle << ' ' << angle << '\n';
+	while (rotationAngle > 360)
+	{
+		rotationAngle -= 360;
+		cout << "1 " << rotationAngle << '\n';
+	}
+	while (rotationAngle < 0)
+	{
+		rotationAngle += 360;
+		cout << "2 " << rotationAngle << '\n';
+	}
+	if (rotationAngle > 90.0f && rotationAngle < 270.0f) {
+		ResetRotation();
+		rotate(180.0f, 0.0f, 1.0f, 0.0f);
+		rotate(180.0f - rotationAngle, 0.0f, 0.0f, 1.0f);
+	}
+	else
+	{
+		ResetRotation();
+		if (rotationAngle < 90.0f)
+			rotate(rotationAngle, 0.0f, 0.0f, 1.0f);
+		else
+			rotate(rotationAngle - 360.0f, 0.0f, 0.0f, 1.0f);
+	}
+	updateFirstPersonCamera();
+}
+
+void Hero::rotate(float angle, float x, float y, float z)
+{
+	m_rotationMatrix *= glm::rotate(angle, glm::vec3(x, y, z));
+}
+
+void Hero::scale(float valx, float valy, float valz)
+{
+	m_scaleMatrix = glm::scale(m_scaleMatrix, glm::vec3(valx, valy, valz));
+	updateFirstPersonCamera();
+}
+
+void Hero::updateFirstPersonCamera()
+{
+	glm::vec3 eye = GetMouth();
+	glm::vec3 test = GetPosition();
+	glm::vec4 center = glm::vec4(GetPosition(), 1.0f);
+
+	float slope;
+	if (fabs(eye.x - center.x) < 1e-9)
+	{
+		if (center.y < eye.y)
+			center.y += 1024.0f;
+		else
+			center.y -= 1024.0f;
+	}
+	else
+	{
+		slope = (eye.y - center.y) / (eye.x - center.x);
+		if (eye.x > center.x)
+			center.x += 1024.0f, center.y += 1024.0f * slope;
+		else
+			center.x += -1024.0f, center.y += -1024.0f * slope;
+	}
+	//center = m_rotationMatrix * center;
+	firstPersonCamera.Reset(eye.x, eye.y, eye.z, center.x, center.y, center.z, 0.0f, 1.0f, 0.0f);
 }
 
 void Hero::GoTo(float newNextXPos, float newNextYPos, float newNextZPos)
@@ -40,40 +112,49 @@ void Hero::GoTo(float newNextXPos, float newNextYPos, float newNextZPos)
 	nextZPos = newNextZPos;
 }
 
+void Hero::MoveForward()
+{
+	glm::vec3 center = GetPosition();
+	glm::vec3 mouth = GetMouth();
+
+	float slope;
+	if (fabs(mouth.x - center.x) < 1e-9)
+	{
+		if (center.y < mouth.y)
+			GoTo(currentXPos, currentYPos + 20.0f, 0.0f);
+		else
+			GoTo(currentXPos, currentYPos - 20.0f, 0.0f);
+	}
+	else 
+	{
+		slope = (mouth.y - center.y) / (mouth.x - center.x);
+		if (mouth.x > center.x)
+			GoTo(currentXPos + 20.0f, currentYPos + 20.0f * slope, currentZPos);
+		else
+			GoTo(currentXPos - 20.0f, currentYPos - 20.0f * slope, currentZPos);
+	}
+}
+
 void Hero::getGoing()
 {
-	if (fabs(nextXPos - currentXPos) < 10.0f)
-		return;
 	glm::vec3 mouth = GetMouth();
-	float slope = (nextYPos - currentYPos) / (nextXPos - currentXPos), oldx = currentXPos, oldy = currentYPos, oldz = currentZPos;
-	float mouthBodyDiff = mouth.z - currentZPos;
-	if (currentXPos < nextXPos)
-	{
-		currentXPos += m_speed;
-		mouth.x += m_speed;
-	}
-	else
-	{
-		currentXPos -= m_speed;
-		mouth.x -= m_speed;
-	}
-	if (currentZPos < nextZPos)
-	{
-		currentZPos += m_speed;
-		mouth.z += m_speed;
-	}
-	else
-	{
-		currentZPos -= m_speed;
-		mouth.z -= m_speed;
-	}
-	if (currentZPos < 0.0f)
-	{
-		currentZPos = rand() % 1024; //
-		mouth.z = mouthBodyDiff + currentZPos;
-	}
-	currentYPos = nextYPos - slope * (nextXPos - currentXPos);
-	mouth.y = nextYPos - slope * (nextXPos - mouth.x);
+	float  oldx = currentXPos, oldy = currentYPos, oldz = currentZPos;
+	float slope1, slope2;
+	
+	if (fabs(currentXPos - nextXPos) < EPS)
+		return;
+
+	slope1 = (nextYPos - currentYPos) / (nextXPos - currentXPos), slope2 = (nextZPos - currentZPos) / (nextXPos - currentXPos);
+
+	currentXPos += m_speed * (currentXPos < nextXPos ? 1 : -1);
+	mouth.x += m_speed * (currentXPos < nextXPos ? 1 : -1);
+
+	currentYPos = nextYPos - slope1 * (nextXPos - currentXPos);
+	mouth.y = nextYPos - slope1 * (nextXPos - mouth.x);
+
+	currentZPos = nextZPos - slope2 * (nextXPos - currentXPos);
+	mouth.z = nextZPos - slope2 * (nextXPos - mouth.x);
+
 	if (mouth.x >= 1024.0f || mouth.x <= -1024.0f || mouth.y >= 720.0f || mouth.y <= -720.0f || mouth.z >= 1024.0f || mouth.z <= 0.0f)
 	{
 		currentXPos = oldx;
@@ -88,20 +169,7 @@ void Hero::getGoing()
 void Hero::getRotations()
 {
 	float currentRotation = (atan2(nextYPos - currentYPos, nextXPos - currentXPos) * 180.0f) / PI;
-	if (fabs(currentRotation) > 90)
-	{
-		ResetRotation();
-		rotate(180.0f, 0.0f, 1.0f, 0.0f);
-		if (currentRotation > 0)
-			rotate(180.0f - currentRotation, 0.0f, 0.0f, 1.0f);
-		else
-			rotate(fabs(currentRotation) - 180.0f, 0.0f, 0.0f, 1.0f);
-	}
-	if (fabs(currentRotation) < 90)
-	{
-		ResetRotation();
-		rotate(currentRotation, 0.0f, 0.0f, 1.0f);
-	}
+	rotateTo(currentRotation);
 }
 
 Hero::~Hero()
