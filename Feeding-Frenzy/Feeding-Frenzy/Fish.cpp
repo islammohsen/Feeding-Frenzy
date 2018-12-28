@@ -83,14 +83,34 @@ glm::vec3 Fish::GetMouth()
 	return glm::vec3(ret.x, ret.y, ret.z);
 }
 
-vector<glm::vec3> Fish::GetCollisionPolygon()
+glm::vec3 Fish::GetLeftSide()
+{
+	glm::vec4 ret = glm::vec4(0.0f, 0.0f, -1.0f, 1.0f);
+	glm::mat4 modelMatrix = m_translationMatrix * m_rotationMatrix * m_scaleMatrix;
+	ret = modelMatrix * ret;
+	return glm::vec3(ret.x, ret.y, ret.z);
+}
+
+glm::vec3 Fish::GetRightSide()
+{
+	glm::vec4 ret = glm::vec4(0.0f, 0.0f, 1.0f, 1.0f);
+	glm::mat4 modelMatrix = m_translationMatrix * m_rotationMatrix * m_scaleMatrix;
+	ret = modelMatrix * ret;
+	return glm::vec3(ret.x, ret.y, ret.z);
+}
+
+vector<float> Fish::GetDimension()
 {
 	glm::mat4 modelMatrix = m_translationMatrix * m_rotationMatrix * m_scaleMatrix;
-	vector<glm::vec3> ret;
+	vector<float> ret = {10000.0f, -10000.0f, 10000.0f, -10000.0f, 10000.0f, -10000.0f };
 	for (glm::vec3 currentPoint : collisionPolygon) {
-		glm::vec4 temp = glm::vec4(currentPoint.x, currentPoint.y, 0.0f, 1.0f);
+		glm::vec4 temp = glm::vec4(currentPoint.x, currentPoint.y, currentPoint.z, 1.0f);
 		temp = modelMatrix * temp;
-		ret.push_back(glm::vec3(temp.x, temp.y, temp.z));
+		for (int i = 0; i < 3; i++)
+		{
+			ret[i << 1] = min((float)ret[i << 1], temp[i]);
+			ret[(i << 1) + 1] = max((float)ret[(i << 1) + 1], temp[i]);
+		}
 	}
 	return ret;
 }
@@ -98,15 +118,16 @@ vector<glm::vec3> Fish::GetCollisionPolygon()
 void Fish::GetCollisionPoints()
 {
 	float xMin = 1e18, xMax = -1e18, yMin = 1e18, yMax = -1e18, zMin = 1e18, zMax = -1e18;
-	for (int i = 0; i < model.m_data.size(); i += 5)
+	for (int i = 0; i < model.m_data.size(); i += 8)
 	{
 		xMin = min(xMin, model.m_data[i]);
 		xMax = max(xMax, model.m_data[i]);
 		yMin = min(yMin, model.m_data[i + 1]);
 		yMax = max(yMax, model.m_data[i + 1]);
 		zMin = min(zMin, model.m_data[i + 2]);
-		zMax = min(zMax, model.m_data[i + 2]);
+		zMax = max(zMax, model.m_data[i + 2]);
 	}
+	assert(zMin != zMax);
 	collisionPolygon = { glm::vec3(xMin, yMin, zMin), glm::vec3(xMin, yMin, zMax), 
 						 glm::vec3(xMin, yMax, zMin), glm::vec3(xMin, yMax, zMax),
 						 glm::vec3(xMax, yMin, zMin), glm::vec3(xMax, yMin, zMax),

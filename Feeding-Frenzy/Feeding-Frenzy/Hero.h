@@ -29,9 +29,10 @@ public:
 	void rotateTo(float angle);
 	void rotate(float angle, float x, float y, float z);
 	void scale(float valx, float valy, float valz);
+	void MoveZ(float val);
 	void updateFirstPersonCamera();
-	void GoTo(float newNextXPos, float newNextYPos, float newNextZPos);
-	void MoveForward();
+	void GoTo(float newNextXPos, float newNextYPos);
+	void MoveForward(float val);
 	void getGoing();
 	void getRotations();
 	~Hero();

@@ -6,9 +6,9 @@ Level::Level(int levelNumber)
 	for(int i = 0; i < 5; i++)
 		texture.push_back("Resources/Textures/Background/background2.png");
 	background = new Background(0.0f, 0.0f, -1.0f, 1024.0f, 720.0f, 3.0f, texture);
-	fishType1Counter = 0;
-	fishType2Counter = 0;
-	fishType3Counter = 1;
+	fishType1Counter = 3;
+	fishType2Counter = 3;
+	fishType3Counter = 3;
 }
 
 Level::~Level()

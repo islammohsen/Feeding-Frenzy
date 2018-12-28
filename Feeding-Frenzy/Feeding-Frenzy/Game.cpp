@@ -19,51 +19,13 @@ typedef struct {
 #define TWOPI 6.283185307179586476925287
 #define RTOD 57.2957795
 
-//double CalcAngleSum(XYZ q, XYZ *p, int n)
-bool PointInPolygon(const vector<glm::vec3> &p, glm::vec3 q)
+
+bool Game::Collision(glm::vec3 mouth, vector<float> target)
 {
-	int i, n = p.size();
-	double m1, m2;
-	double anglesum = 0, costheta;
-	XYZ p1, p2;
-
-	for (i = 0; i < n; i++) {
-
-		p1.x = p[i].x - q.x;
-		p1.y = p[i].y - q.y;
-		p1.z = p[i].z - q.z;
-		p2.x = p[(i + 1) % n].x - q.x;
-		p2.y = p[(i + 1) % n].y - q.y;
-		p2.z = p[(i + 1) % n].z - q.z;
-
-		m1 = MODULUS(p1);
-		m2 = MODULUS(p2);
-		if (m1*m2 <= EPSILON)
-			return(TWOPI); /* We are on a node, consider this inside */
-		else
-			costheta = (p1.x*p2.x + p1.y*p2.y + p1.z*p2.z) / (m1*m2);
-
-		anglesum += acos(costheta);
-	}
-	return fabs(anglesum - 1e-9) <= 360.0f;
-}
-
-/*bool PointInPolygon(const vector<glm::vec3> &p, glm::vec3 q) {
-	bool c = 0;
-	for (int i = 0; i < p.size(); i++) {
-		int j = (i + 1) % p.size();
-		if ((p[i].y <= q.y && q.y < p[j].y ||
-			p[j].y <= q.y && q.y < p[i].y) &&
-			q.x < p[i].x + (p[j].x - p[i].x) * (q.y - p[i].y) / (p[j].y - p[i].y))
-			c = !c;
-	}
-	return c;
-}*/
-
-
-bool Game::Collision(glm::vec3 mouth, vector<glm::vec3> target)
-{
-	return PointInPolygon(target, mouth);
+	bool ret = true;
+	for (int i = 0; i < 3; i++)
+		ret &= mouth[i] >= target[(i << 1)] && mouth[i] <= target[(i << 1) + 1];
+	return ret;
 }
 
 void Game::Initialize()
@@ -132,7 +94,7 @@ void Game::CheckCollision()
 	{
 		if (bots[i]->GetType() >= ourHero->GetType())
 			continue;
-		if (Collision(ourHero->GetMouth(), bots[i]->GetCollisionPolygon())) {
+		if (Collision(ourHero->GetMouth(), bots[i]->GetDimension())) {
 			Remove.insert(i);
 			ourHero->Eat();
 		}
@@ -145,10 +107,10 @@ void Game::CheckCollision()
 		{
 			if (i == j || bots[j]->GetType() >= bots[i]->GetType())
 				continue;
-			if (Collision(mouth, bots[j]->GetCollisionPolygon()))
+			if (Collision(mouth, bots[j]->GetDimension()))
 				Remove.insert(j);
 		}
-		if (bots[i]->GetType() > ourHero->GetType() && Collision(mouth, ourHero->GetCollisionPolygon()))
+		if (bots[i]->GetType() > ourHero->GetType() && Collision(mouth, ourHero->GetDimension()))
 			heroDead = true;
 	}
 	if (heroDead)

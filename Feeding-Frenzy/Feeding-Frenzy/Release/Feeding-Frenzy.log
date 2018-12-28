@@ -1,11 +1,7 @@
-﻿  main.cpp
-d:\git\feeding-frenzy\feeding-frenzy\feeding-frenzy\feeding-frenzy\objloader.h(20): warning C4091: 'static ': ignored on left of 'OBJLoader' when no variable is declared
-d:\git\feeding-frenzy\feeding-frenzy\feeding-frenzy\feeding-frenzy\modelloader.h(28): warning C4091: 'static ': ignored on left of 'ModelLoader' when no variable is declared
-d:\git\feeding-frenzy\feeding-frenzy\feeding-frenzy\feeding-frenzy\main.cpp(12): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
-d:\git\feeding-frenzy\feeding-frenzy\feeding-frenzy\feeding-frenzy\main.cpp(12): warning C4244: 'initializing': conversion from 'double' to 'const float', possible loss of data
+﻿  Level.cpp
   Generating code
-  2 of 1422 functions ( 0.1%) were compiled, the rest were copied from previous compilation.
+  2 of 1555 functions ( 0.1%) were compiled, the rest were copied from previous compilation.
     0 functions were new in current compilation
-    2 functions had inline decision re-evaluated but remain unchanged
+    1 functions had inline decision re-evaluated but remain unchanged
   Finished generating code
   Feeding-Frenzy.vcxproj -> D:\Git\Feeding-Frenzy\Feeding-Frenzy\Feeding-Frenzy\Release\Feeding-Frenzy.exe

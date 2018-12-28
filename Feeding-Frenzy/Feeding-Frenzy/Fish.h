@@ -47,7 +47,9 @@ public:
 	int GetType();
 	glm::vec3 GetPosition();
 	glm::vec3 GetMouth();
-	vector<glm::vec3> GetCollisionPolygon();
+	glm::vec3 GetLeftSide();
+	glm::vec3 GetRightSide();
+	vector<float> GetDimension(); //x min x max y min y max z min z max
 	~Fish();
 };
 #endif

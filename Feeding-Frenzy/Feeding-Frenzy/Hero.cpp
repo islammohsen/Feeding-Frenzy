@@ -79,6 +79,17 @@ void Hero::scale(float valx, float valy, float valz)
 	updateFirstPersonCamera();
 }
 
+void Hero::MoveZ(float val)
+{
+	glm::vec3 left = GetLeftSide();
+	glm::vec3 right = GetRightSide();
+	left.z += val, right.z += val;
+	if (left.z >= 1024.0f || left.z <= 0 || right.z >= 1024.0f || right.z <= 0)
+		return;
+	currentZPos += val;
+	move(0, 0, val);
+}
+
 void Hero::updateFirstPersonCamera()
 {
 	glm::vec3 eye = GetMouth();
@@ -105,14 +116,13 @@ void Hero::updateFirstPersonCamera()
 	firstPersonCamera.Reset(eye.x, eye.y, eye.z, center.x, center.y, center.z, 0.0f, 1.0f, 0.0f);
 }
 
-void Hero::GoTo(float newNextXPos, float newNextYPos, float newNextZPos)
+void Hero::GoTo(float newNextXPos, float newNextYPos)
 {
 	nextXPos = newNextXPos;
 	nextYPos = newNextYPos;
-	nextZPos = newNextZPos;
 }
 
-void Hero::MoveForward()
+void Hero::MoveForward(float val)
 {
 	glm::vec3 center = GetPosition();
 	glm::vec3 mouth = GetMouth();
@@ -121,19 +131,20 @@ void Hero::MoveForward()
 	if (fabs(mouth.x - center.x) < 1e-9)
 	{
 		if (center.y < mouth.y)
-			GoTo(currentXPos, currentYPos + 20.0f, 0.0f);
+			GoTo(currentXPos, currentYPos + val);
 		else
-			GoTo(currentXPos, currentYPos - 20.0f, 0.0f);
+			GoTo(currentXPos, currentYPos - val);
 	}
 	else 
 	{
 		slope = (mouth.y - center.y) / (mouth.x - center.x);
 		if (mouth.x > center.x)
-			GoTo(currentXPos + 20.0f, currentYPos + 20.0f * slope, currentZPos);
+			GoTo(currentXPos + val, currentYPos + val * slope);
 		else
-			GoTo(currentXPos - 20.0f, currentYPos - 20.0f * slope, currentZPos);
+			GoTo(currentXPos - val, currentYPos - val * slope);
 	}
 }
+
 
 void Hero::getGoing()
 {
@@ -149,13 +160,10 @@ void Hero::getGoing()
 	currentXPos += m_speed * (currentXPos < nextXPos ? 1 : -1);
 	mouth.x += m_speed * (currentXPos < nextXPos ? 1 : -1);
 
-	currentYPos = nextYPos - slope1 * (nextXPos - currentXPos);
-	mouth.y = nextYPos - slope1 * (nextXPos - mouth.x);
+	currentYPos += m_speed * slope1 * (currentXPos < nextXPos ? 1 : -1);
+	mouth.y += m_speed * slope1 * (currentXPos < nextXPos ? 1 : -1);
 
-	currentZPos = nextZPos - slope2 * (nextXPos - currentXPos);
-	mouth.z = nextZPos - slope2 * (nextXPos - mouth.x);
-
-	if (mouth.x >= 1024.0f || mouth.x <= -1024.0f || mouth.y >= 720.0f || mouth.y <= -720.0f || mouth.z >= 1024.0f || mouth.z <= 0.0f)
+	if (mouth.x >= 1024.0f || mouth.x <= -1024.0f || mouth.y >= 720.0f || mouth.y <= -720.0f)
 	{
 		currentXPos = oldx;
 		currentYPos = oldy;

@@ -38,19 +38,23 @@ void SpecialKeyPressed(GLFWwindow* window, int key, int scancode, int action, in
 		if (keyPressed == GLFW_KEY_D)
 			game->ourHero->rotateTo(game->ourHero->rotationAngle - 5.0f);
 		if (keyPressed == GLFW_KEY_Z)
-			game->ourHero->GoTo(game->ourHero->currentXPos, game->ourHero->currentYPos, game->ourHero->currentZPos - 20.0f);
-		if (keyPressed == GLFW_KEY_X)
-			game->ourHero->GoTo(game->ourHero->currentXPos, game->ourHero->currentYPos, game->ourHero->currentZPos + 20.0f);
+			game->ourHero->MoveZ(-10.0f);
+		if(keyPressed == GLFW_KEY_X)
+			game->ourHero->MoveZ(10.0f);
 		
 	}
 	if(game->mode == FirstPerson)
 	{
 		if (keyPressed == GLFW_KEY_W)
-			game->ourHero->MoveForward();
+			game->ourHero->MoveForward(20.0f);
 		if (keyPressed == GLFW_KEY_A)
 			game->ourHero->rotateTo(game->ourHero->rotationAngle + 5.0f);
 		if(keyPressed == GLFW_KEY_D)
 			game->ourHero->rotateTo(game->ourHero->rotationAngle - 5.0f);
+		if (keyPressed == GLFW_KEY_Z)
+			game->ourHero->MoveZ(-10.0f);
+		if (keyPressed == GLFW_KEY_X)
+			game->ourHero->MoveZ(10.0f);
 	}
 }
 
@@ -79,7 +83,7 @@ void MouseMoved(GLFWwindow* window, double MouseXPos, double MouseYPos) {
 		v.x *= 1024;
 		v.y *= 720.0f;
 		v.y *= -1;
-		game->ourHero->GoTo(game->ourHero->currentXPos + v.x, game->ourHero->currentYPos + v.y, game->ourHero->currentZPos);
+		game->ourHero->GoTo(game->ourHero->currentXPos + v.x, game->ourHero->currentYPos + v.y);
 	}
 }
 
@@ -137,7 +141,7 @@ int main()
 		/* Render here */
 
 		game->Update();
-		//game->CheckCollision();
+		game->CheckCollision();
 		game->Draw();
 
 		/* Swap front and back buffers */

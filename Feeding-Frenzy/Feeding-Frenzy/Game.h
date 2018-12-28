@@ -47,7 +47,7 @@ public:
 	void Draw();
 	void Update();
 	void CheckCollision();
-	bool Collision(glm::vec3, vector<glm::vec3>); // 
+	bool Collision(glm::vec3, vector<float>); // 
 	~Game();
 	glm::mat4 view_matrix;
 };
